@@ -1,0 +1,15 @@
+{
+  "name": "ehcans-snippet",
+  "version": "2.0.0",
+  "description": "My tiny code snippet base",
+  "main": "app.js",
+  "author": "ehcan@icloud.com",
+  "license": "ISC",
+  "dependencies": {
+    "argon2": "^0.26.2",
+    "express": "^4.17.1",
+    "http-status-codes": "^1.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.20"
+  }
+}

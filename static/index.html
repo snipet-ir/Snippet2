@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico" />
+
+		<title>Code Snippets 2</title>
+		<link href="/static/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="/static/css/highlightjs.min.css" rel="stylesheet" />
+		<link href="/static/css/an-old-hope.min.css" rel="stylesheet" />
+		<link href="/static/css/alertify.min.css" rel="stylesheet" />
+		<link href="/static/css/alertify-bootstrap.min.css" rel="stylesheet"/>
+		<link href="/static/css/select2.min.css" rel="stylesheet"/>
+		<link href="/static/css/fontisto.min.css" rel="stylesheet"/>
+		<link href="/static/css/main.css" rel="stylesheet" />
+
+		<link rel="apple-touch-icon" sizes="180x180" href="/static/images/fav/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/static/images/fav/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/static/images/fav/favicon-16x16.png">
+		<link rel="manifest" href="/static/images/fav/site.webmanifest">
+		<link rel="mask-icon" href="/static/images/fav/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="/static/images/fav/favicon.ico">
+		<meta name="apple-mobile-web-app-title" content="Code Snippets 2">
+		<meta name="application-name" content="Code Snippets 2">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-config" content="/static/images/fav/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+	</head>
+
+	<body>
+		<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">
+				<img src="/static/images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+				Code Snippets 2
+			</a>
+			<input class="form-control mx-lg-5 text-monospace" id="search-input" type="text" placeholder="Search" aria-label="Search"/>
+		</nav>
+
+		<div class="nav-scroller bg-white box-shadow">
+			<nav class="nav nav-underline">
+				<a class="nav-link" id="addSnippet" href="#"><i class="fi fi-plus-a"></i> Add Snippet</a>
+				<a class="nav-link" id="profile" href="#"><i class="fi fi-person"></i> Profile</a>
+				<a class="nav-link" id="logout" href="#"><i class="fi fi-power"></i> Logout</a>
+			</nav>
+		</div>
+
+		<div id="code-modal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn btn-primary" id="copyToClipboard" data-id=""><i class="fi fi-paste"></i> Copy to Clipboard</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fi fi-close-a"></i> Close</button>
+					</div>
+					<div class="modal-body">
+						<pre><code></code></pre>
+						<form style="display: none;">
+							<input id="edit__id" hidden>
+
+							<div class="form-group">
+								<label for="edit__title" class="col-form-label"><i class="fi fi-file-1"></i> Title:</label>
+								<input type="text" class="form-control" id="edit__title">
+							</div>
+
+							<div class="form-group">
+								<label for="edit__description" class="col-form-label"><i class="fi fi-file-1"></i> Description:</label>
+								<input type="text" class="form-control" id="edit__description">
+							</div>
+
+							<div class="form-group">
+								<label for="edit__code" class="col-form-label"><i class="fi fi-code"></i> Code:</label>
+								<textarea id="edit__code" class="form-control text-monospace" rows="15"></textarea>
+							</div>
+
+							<div class="form-group">
+								<label for="edit__language" class="col-form-label"><i class="fi fi-world-o"></i> Language:</label>
+								<select class="form-control text-monospace" id="edit__language" width="100%">
+									<option selected disabled value="">Select a language</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="edit__tags" class="col-form-label"><i class="fi fi-ticket"></i> Tags:</label>
+								<select class="form-control text-monospace" multiple="multiple" id="edit__tags" width="100%">
+								</select>
+							</div>
+
+
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="deleteSnippet" data-id=""><i class="fi fi-trash"></i> Delete</button>
+						<button type="button" class="btn btn-dark" id="editSnippet" data-id=""><i class="fi fi-italic"></i> Edit</button>
+						<button type="button" class="btn btn-secondary" id="edit__cancel" style="display: none;"><i class="fi fi-close-a"></i> Cancel</button>
+						<button type="button" class="btn btn-success" id="edit__save" style="display: none;"><i class="fi fi-save"></i> Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<main role="main" class="container snippets"></main>
+
+		<script src="/static/js/jquery-3.5.1.min.js"></script>
+		<script src="/static/js/popper.min.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+		<script src="/static/js/highlight.min.js"></script>
+		<script src="/static/js/alertify.min.js"></script>
+		<script src="/static/js/select2.min.js"></script>
+		<script src="/static/js/index.js"></script>
+	</body>
+</html>

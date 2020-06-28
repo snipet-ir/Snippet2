@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+    ehcan-snippet2:
+        build: .
+        image: ehcan-snippet2:latest
+        container_name: ehcan-snippet2
+        ports:
+            - '3031:3000'
+        restart: unless-stopped
+        # environment:
+            # - MONGODB=MONGODB
+            # - JWT_SECRET=JWT_SECRET
+            # - INIT_USERNAME=INIT_USERNAME
+            # - INIT_PASSWORD=INIT_PASSWORD
