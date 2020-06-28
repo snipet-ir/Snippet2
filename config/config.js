@@ -1,6 +1,6 @@
 const config = {
 	mongodb: {
-		url: process.env.mongodb || 'mongodb://localhost:27017/snippet',
+		url: process.env.MONGODB || 'mongodb://localhost:27017/snippet',
 		options: {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
