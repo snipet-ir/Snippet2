@@ -390,7 +390,7 @@ function setCardCodeClickHandler() {
 function openModal(id) {
 	let codeItem = DATA.find(el => el._id == id);
 
-	$('.modal-body pre code').text(codeItem.code.replace(/\\n/g, '\n'));
+	$('#code-modal .modal-body pre code').text(codeItem.code.replace(/\\n/g, '\n'));
 	$('#copyToClipboard').data('id', codeItem._id);
 	$('#editSnippet').data('id', codeItem._id);
 	$('#deleteSnippet').data('id', codeItem._id);
@@ -400,8 +400,8 @@ function openModal(id) {
 		hljs.highlightBlock(block);
 	});
 
-	$('.modal-body form, #edit__cancel, #edit__save').hide();
-	$('.modal-body pre, #editSnippet, #deleteSnippet').show();
+	$('#code-modal .modal-body form, #edit__cancel, #edit__save').hide();
+	$('#code-modal .modal-body pre, #editSnippet, #deleteSnippet').show();
 	loadTagsInSelect();
 
 	$('#code-modal').modal('show');
@@ -420,15 +420,15 @@ function editSnippetHandler(e) {
 	let id = $(this).data('id');
 	let codeItem = DATA.find(el => el._id == id);
 
-	$('.modal-body pre, #editSnippet').hide();
+	$('#code-modal .modal-body pre, #editSnippet').hide();
 
-	$('.modal-body form #edit__id').val(codeItem._id);
-	$('.modal-body form #edit__title').val(codeItem.title);
-	$('.modal-body form #edit__description').val(codeItem.description);
-	$('.modal-body form #edit__code').val(codeItem.code);
-	$('.modal-body form #edit__language').val(codeItem.language).trigger('change');
-	$('.modal-body form #edit__tags').val(codeItem.tags).trigger('change');
-	$('.modal-body form, #edit__cancel, #edit__save').show();
+	$('#edit__id').val(codeItem._id);
+	$('#edit__title').val(codeItem.title);
+	$('#edit__description').val(codeItem.description);
+	$('#edit__code').val(codeItem.code);
+	$('#edit__language').val(codeItem.language).trigger('change');
+	$('#edit__tags').val(codeItem.tags).trigger('change');
+	$('#code-modal .modal-body form, #edit__cancel, #edit__save').show();
 }
 
 function addSnippetHandler(e) {
@@ -436,13 +436,13 @@ function addSnippetHandler(e) {
 
 	$('.modal-body pre, #editSnippet, #deleteSnippet').hide();
 
-	$('.modal-body form #edit__id').val('');
-	$('.modal-body form #edit__title').val('');
-	$('.modal-body form #edit__description').val('');
-	$('.modal-body form #edit__code').val('');
-	$('.modal-body form #edit__language').val('').trigger('change');
-	$('.modal-body form #edit__tags').val([]).trigger('change');
-	$('.modal-body form, #edit__cancel, #edit__save').show();
+	$('#edit__id').val('');
+	$('#edit__title').val('');
+	$('#edit__description').val('');
+	$('#edit__code').val('');
+	$('#edit__language').val('').trigger('change');
+	$('#edit__tags').val([]).trigger('change');
+	$('#code-modal .modal-body form, #edit__cancel, #edit__save').show();
 
 	loadTagsInSelect();
 	$('#code-modal').modal('show');
@@ -457,12 +457,12 @@ function editCancelHandler(e) {
 function editSaveHandler(e) {
 	e.preventDefault();
 
-	let id = $('.modal-body form #edit__id').val();
-	let title = $('.modal-body form #edit__title').val();
-	let description = $('.modal-body form #edit__description').val();
-	let code = $('.modal-body form #edit__code').val();
-	let language = $('.modal-body form #edit__language').val();
-	let tags = $('.modal-body form #edit__tags').val();
+	let id = $('#edit__id').val();
+	let title = $('#edit__title').val();
+	let description = $('#edit__description').val();
+	let code = $('#edit__code').val();
+	let language = $('#edit__language').val();
+	let tags = $('#edit__tags').val();
 
 	upsert({ id, title, description, code, language, tags });
 }
