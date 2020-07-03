@@ -103,6 +103,7 @@ function openModal(id) {
 	$('#editSnippet').data('id', codeItem._id);
 	$('#deleteSnippet').data('id', codeItem._id);
 
+	$('pre code').removeClass();
 	$('pre code').each(function (i, block) {
 		hljs.highlightBlock(block);
 	});
