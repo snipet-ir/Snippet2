@@ -5,6 +5,7 @@ if (localStorage.getItem('token')) {
 function loginResponseHandler(response) {
 	if (response.success) {
 		localStorage.setItem('token', response.token);
+		localStorage.setItem('username', response.username);
 		window.location.href = '/';
 	} else {
 		alert('Wrong Credentials');

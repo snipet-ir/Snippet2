@@ -28,8 +28,18 @@ async function findUserByID(id) {
 	}
 }
 
+async function updatePassword(userID, newPassword) {
+	try {
+		return await users.findByIdAndUpdate(userID, { $set: { password: newPassword } });
+	} catch (err) {
+		console.error(err);
+		throw err;
+	}
+}
+
 module.exports = {
 	createUser,
 	findUserByUsername,
 	findUserByID,
+	updatePassword,
 };

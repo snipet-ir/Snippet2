@@ -517,7 +517,10 @@ function logoutHandler(e) {
 
 function profileHandler(e) {
 	e.preventDefault();
-	// TODO: open profile
+	$('#profile__username').val(localStorage.getItem('username'));
+	$('#old__password, #new__password').val('');
+	$('#generated_password').text('');
+	$('#profile-modal').modal('show');
 }
 
 function deleteSnippetHandler(e) {
@@ -549,6 +552,53 @@ function deleteSnippetHandler(e) {
 		.set('modal', true);
 }
 
+function generatePasswordHandler(e) {
+	e.preventDefault();
+	let generatedPassword = passwordGenerator();
+	$('#generated_password').text(generatedPassword);
+	$('#new__password').val(generatedPassword);
+	copyToClipboard(generatedPassword);
+}
+
+function profileSaveHandler(e) {
+	e.preventDefault();
+
+	// check if old pass is entered ?
+	let oldPassword = $('#old__password').val();
+	if (!oldPassword) {
+		alertify.error('Please Enter Old Password');
+		return;
+	}
+
+	// check if new pass in entered ?
+	let newPassword = $('#new__password').val();
+	if (!newPassword) {
+		alertify.error('Please Enter New Password');
+		return;
+	}
+
+	$.ajax({
+		type: 'PATCH',
+		url: '/api/profile',
+		data: JSON.stringify({ oldPassword, newPassword }),
+		headers: {
+			token: localStorage.getItem('token') || '',
+		},
+		contentType: 'application/json',
+		dataType: 'json',
+		success: function (response) {
+			alertify.success('Profile Updated! Please login again!');
+			setTimeout(() => {
+				localStorage.clear();
+				window.location.href = '/login';
+			}, 3000);
+		},
+		error: function (err) {
+			alertify.error(err.responseJSON.message);
+		},
+	});
+}
+
 $(function () {
 	$('#copyToClipboard').click(copyToClipboardHandler);
 	$('#editSnippet').click(editSnippetHandler);
@@ -559,6 +609,8 @@ $(function () {
 	$('#search-input').keyup(searchChangeHandler);
 	$('#logout').click(logoutHandler);
 	$('#profile').click(profileHandler);
+	$('#generate_password').click(generatePasswordHandler);
+	$('#profile__save').click(profileSaveHandler);
 
 	loadLanguagesInSelect();
 
@@ -574,11 +626,18 @@ function copyToClipboard(text) {
 	document.body.removeChild(dummy);
 
 	navigator.clipboard.writeText(text).then(
-		function () {
-			alertify.success('🍩 Done 🎈');
-		},
-		function (err) {
-			alertify.error('🍩 Error! 🎈');
-		}
+		function () {},
+		function (err) {}
 	);
+	alertify.success('🍩 Copied to Clipboard 🎈');
+}
+
+function passwordGenerator(length = 24) {
+	let result = '';
+	let characters = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-/.,><`;
+	let charactersLength = characters.length;
+	for (let i = 0; i < length; i++) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	return result;
 }

@@ -15,7 +15,7 @@ async function login(req, res, next) {
 
 		if (await argon.verify(foundUser.password, password)) {
 			const token = jwt.getToken({ id: foundUser._id, username });
-			return res.json({ success: true, token });
+			return res.json({ success: true, token, username: foundUser.username });
 		} else {
 			throw Error(`username and password didn't match`);
 		}

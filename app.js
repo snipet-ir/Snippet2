@@ -22,6 +22,7 @@ app.use('/static', express.static(__dirname + '/static'));
 
 app.use('/api', require('./routes/api/login'));
 app.use('/api', require('./routes/api/main'));
+app.use('/api', require('./routes/api/profile'));
 app.use('/', require('./routes/views'));
 
 app.use((error, req, res, next) => {
