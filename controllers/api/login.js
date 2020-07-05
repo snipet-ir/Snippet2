@@ -25,6 +25,32 @@ async function login(req, res, next) {
 	}
 }
 
+async function signup(req, res, next) {
+	try {
+		const { username, password } = req.body;
+		// TODO:check inputs
+
+		let foundUser = await users.findUserByUsername(username);
+		if (foundUser) {
+			if (await argon.verify(foundUser.password, password)) {
+				const token = jwt.getToken({ id: foundUser._id, username });
+				return res.json({ success: true, token, username: foundUser.username });
+			} else {
+				throw Error(`Given Username is already exist`);
+			}
+		} else {
+			// create a user
+			let createdUser = await users.createUser(username, password);
+			const token = jwt.getToken({ id: createdUser._id, username });
+			return res.json({ success: true, token, username: createdUser.username });
+		}
+	} catch (err) {
+		console.error(err);
+		next(err);
+	}
+}
+
 module.exports = {
 	login,
+	signup,
 };

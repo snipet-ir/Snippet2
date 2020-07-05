@@ -1,3 +1,5 @@
+alertify.set('notifier', 'position', 'top-center');
+
 if (localStorage.getItem('token')) {
 	window.location.href = '/';
 }
@@ -8,8 +10,23 @@ function loginResponseHandler(response) {
 		localStorage.setItem('username', response.username);
 		window.location.href = '/';
 	} else {
-		alert('Wrong Credentials');
+		alertify.error('Wrong Credentials');
 	}
+}
+
+function signupResponseHandler(response) {
+	if (response.success) {
+		localStorage.setItem('token', response.token);
+		localStorage.setItem('username', response.username);
+		window.location.href = '/';
+	} else {
+		alertify.error(response.error);
+	}
+}
+
+function signupErrorHandler(err) {
+	console.error(err);
+	alertify.error('Unknown Error!');
 }
 
 function loginHandler(e) {
@@ -25,4 +42,21 @@ function loginHandler(e) {
 	});
 }
 
-$('#login').click(loginHandler);
+function signupHandler(e) {
+	e.preventDefault();
+	let username = $('#user').val();
+	let password = $('#password').val();
+
+	$.ajax({
+		type: 'POST',
+		url: '/api/signup',
+		data: { username, password },
+		success: signupResponseHandler,
+		error: signupErrorHandler,
+	});
+}
+
+$(function () {
+	$('#login').click(loginHandler);
+	$('#signup').click(signupHandler);
+});

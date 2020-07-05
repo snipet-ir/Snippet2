@@ -1,8 +1,8 @@
 TODOs:
 
-1- Profile Modal for change `Password`
+~~1- Profile Modal for change `Password`~~
 
-2- Register
+~~2- Register~~
 
 3- Input Validation
 
