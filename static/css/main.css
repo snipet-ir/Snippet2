@@ -94,3 +94,13 @@ body {
 .select2-container{
   display: block;
 }
+
+.modal-dialog,
+.modal-content {
+    height: 90%;
+}
+
+.modal-body {
+    max-height: calc(100% - 120px);
+    overflow-y: scroll;
+}
