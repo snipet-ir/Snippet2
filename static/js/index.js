@@ -1,4 +1,5 @@
 let DATA;
+let PUBLIC = false;
 let TAGS = new Set();
 const languages = {
 	'3d': '3d.svg',
@@ -327,7 +328,7 @@ function getSnippetsData() {
 		headers: {
 			token: localStorage.getItem('token') || '',
 		},
-		data: { q },
+		data: { q, public: PUBLIC },
 		success: snippetsResponseHandler,
 		error: snippetsErrorHandler,
 	});
@@ -360,8 +361,9 @@ function getCodeTemplate(obj) {
 	let tagsString = '';
 	obj.tags.forEach(el => {
 		TAGS.add(el);
-		tagsString += `<span class="badge badge-primary mr-1">${el}</span>`;
+		tagsString += `<span class="badge badge-primary mr-1 mt-1">${el}</span>`;
 	});
+	let owner = obj.owner ? ` by <code>${obj.owner}</code><br>` : '';
 	let template = `
 	<div class="card-code d-flex align-items-center p-3 my-3 cards-bg rounded box-shadow" data-id="${obj._id}">
 		<img
@@ -370,7 +372,8 @@ function getCodeTemplate(obj) {
 			alt="${obj.language}"
 			width="48" height="48"/>
 		<div class="lh-100">
-			<h6 class="mb-0 lh-100">${obj.title}</h6>
+			<h6 class="mb-1 lh-100">${obj.title}</h6>
+			${owner}
 			${tagsString}<br>
 			<small>${obj.description}</small>
 		</div>
@@ -389,6 +392,10 @@ function setCardCodeClickHandler() {
 
 function openModal(id) {
 	let codeItem = DATA.find(el => el._id == id);
+	let editAble = true;
+	if (PUBLIC && codeItem.editAble == false) {
+		editAble = false;
+	}
 
 	$('#code-modal .modal-body pre code').text(codeItem.code.replace(/\\n/g, '\n'));
 	$('#copyToClipboard').data('id', codeItem._id);
@@ -402,6 +409,9 @@ function openModal(id) {
 
 	$('#code-modal .modal-body form, #edit__cancel, #edit__save').hide();
 	$('#code-modal .modal-body pre, #editSnippet, #deleteSnippet').show();
+	if (!editAble) {
+		$('#editSnippet, #deleteSnippet').hide();
+	}
 	loadTagsInSelect();
 
 	$('#code-modal').modal('show');
@@ -602,6 +612,15 @@ function profileSaveHandler(e) {
 	});
 }
 
+function private_public_handler(e) {
+	e.preventDefault();
+	PUBLIC = !PUBLIC;
+	$(this).html(
+		PUBLIC ? `<i class="fi fi-toggle-on"></i> Public Snippets` : `<i class="fi fi-toggle-off"></i> My Snippets`
+	);
+	getSnippetsData();
+}
+
 $(function () {
 	$('#copyToClipboard').click(copyToClipboardHandler);
 	$('#editSnippet').click(editSnippetHandler);
@@ -612,6 +631,7 @@ $(function () {
 	$('#search-input').keyup(searchChangeHandler);
 	$('#logout').click(logoutHandler);
 	$('#profile').click(profileHandler);
+	$('#private_public').click(private_public_handler);
 	$('#generate_password').click(generatePasswordHandler);
 	$('#profile__save').click(profileSaveHandler);
 

@@ -4,8 +4,10 @@ const HttpStatus = require('http-status-codes');
 async function getSnippets(req, res, next) {
 	try {
 		let userID = req.user._id;
-		let { q } = req.query;
-		let ret = await snippets.getUsersSnipets(userID, q);
+		let { q, public } = req.query;
+		let ret =
+			public == 'true' ? await snippets.getPublicSnipets(userID, q) : await snippets.getUsersSnipets(userID, q);
+
 		res.success(ret);
 	} catch (err) {
 		console.error(err);

@@ -4,9 +4,39 @@ const mongoose = require('mongoose');
 async function getUsersSnipets(userID, q) {
 	try {
 		return await snippets
+			.find(
+				{
+					$and: [
+						{ $or: [{ owner: userID }, { 'collabrators.id': userID }] },
+						{
+							$or: [
+								{ title: new RegExp(q, 'i') },
+								{ description: new RegExp(q, 'i') },
+								{ code: new RegExp(q, 'i') },
+								{ tags: new RegExp(q, 'i') },
+								{ language: new RegExp(q, 'i') },
+							],
+						},
+					],
+				},
+				{
+					owner: 0,
+				}
+			)
+			.sort({ updatedAt: -1 })
+			.lean();
+	} catch (err) {
+		throw Error(`Can't get this user's snippets`);
+	}
+}
+
+async function getPublicSnipets(userID, q) {
+	try {
+		let result = await snippets
 			.find({
 				$and: [
-					{ $or: [{ owner: userID }, { 'collabrators.id': userID }] },
+					// { owner: { $ne: userID } },
+					{ public: true },
 					{
 						$or: [
 							{ title: new RegExp(q, 'i') },
@@ -18,8 +48,15 @@ async function getUsersSnipets(userID, q) {
 					},
 				],
 			})
+			.populate('owner')
 			.sort({ updatedAt: -1 })
 			.lean();
+
+		for (let i = 0; i < result.length; i++) {
+			result[i].editAble = result[i].owner._id.toString() == userID.toString();
+			result[i].owner = result[i].owner.username;
+		}
+		return result;
 	} catch (err) {
 		throw Error(`Can't get this user's snippets`);
 	}
@@ -69,6 +106,7 @@ async function deleteSnippet(userID, id) {
 
 module.exports = {
 	upsertSnippet,
+	getPublicSnipets,
 	getUsersSnipets,
 	deleteSnippet,
 };
