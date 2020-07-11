@@ -8,6 +8,8 @@ const schema = mongoose.Schema(
 		language: String,
 		code: String,
 
+		public: { type: Boolean, default: false, index: true },
+
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,

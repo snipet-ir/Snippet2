@@ -1,5 +1,6 @@
 const { snippets } = require('./models');
 const mongoose = require('mongoose');
+
 async function getUsersSnipets(userID, q) {
 	try {
 		return await snippets
@@ -24,7 +25,7 @@ async function getUsersSnipets(userID, q) {
 	}
 }
 
-async function upsertSnippet(userID, { id, title, description, tags, language, code }) {
+async function upsertSnippet(userID, { id, title, description, public, tags, language, code }) {
 	try {
 		if (id == '') {
 			id = mongoose.Types.ObjectId();
@@ -36,6 +37,7 @@ async function upsertSnippet(userID, { id, title, description, tags, language, c
 			$set: {
 				title,
 				description,
+				public,
 				language,
 				code,
 				owner: userID,

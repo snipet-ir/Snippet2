@@ -425,6 +425,7 @@ function editSnippetHandler(e) {
 	$('#edit__id').val(codeItem._id);
 	$('#edit__title').val(codeItem.title);
 	$('#edit__description').val(codeItem.description);
+	$('#edit__public').prop('checked', codeItem.public);
 	$('#edit__code').val(codeItem.code);
 	$('#edit__language').val(codeItem.language).trigger('change');
 	$('#edit__tags').val(codeItem.tags).trigger('change');
@@ -439,6 +440,7 @@ function addSnippetHandler(e) {
 	$('#edit__id').val('');
 	$('#edit__title').val('');
 	$('#edit__description').val('');
+	$('#edit__public').prop('checked', false);
 	$('#edit__code').val('');
 	$('#edit__language').val('').trigger('change');
 	$('#edit__tags').val([]).trigger('change');
@@ -460,21 +462,22 @@ function editSaveHandler(e) {
 	let id = $('#edit__id').val();
 	let title = $('#edit__title').val();
 	let description = $('#edit__description').val();
+	let public = $('#edit__public').prop('checked');
 	let code = $('#edit__code').val();
 	let language = $('#edit__language').val();
 	let tags = $('#edit__tags').val();
 
-	upsert({ id, title, description, code, language, tags });
+	upsert({ id, title, description, public, code, language, tags });
 }
 
-function upsert({ id, title, description, code, language, tags }) {
+function upsert({ id, title, description, public, code, language, tags }) {
 	$.ajax({
 		type: 'POST',
 		url: '/api/snippets',
 		headers: {
 			token: localStorage.getItem('token') || '',
 		},
-		data: JSON.stringify({ id, title, description, code, language, tags }),
+		data: JSON.stringify({ id, title, description, public, code, language, tags }),
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function (response) {
