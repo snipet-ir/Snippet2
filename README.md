@@ -1,4 +1,4 @@
-##Code Snipept2:
+## Code Snipept2:
 A simple code snippet.
 
 Login:
@@ -26,7 +26,7 @@ Public Code:
 
 ---
 
-###TODOs:
+### TODOs:
 
 ~~1- Profile Modal for change `Password`~~
 
