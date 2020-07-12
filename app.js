@@ -1,9 +1,11 @@
 require('./db/_conn');
 const express = require('express');
 const app = express();
+const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const responseManager = require('./services/responseManager');
 // set middlewares
+app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
