@@ -2,12 +2,16 @@ const config = require('../../config');
 const jwt = require('../../services/jwt');
 const { users } = require('../../db');
 const argon = require('../../services/argon2');
+const validator = require('../../services/validator');
 
 async function login(req, res, next) {
 	try {
 		const { username, password } = req.body;
 
-		// TODO:check inputs
+		// validate inputs
+		validator.username(username);
+		validator.password(password);
+
 		let foundUser = await users.findUserByUsername(username);
 		if (!foundUser) {
 			throw Error('User nout found');
@@ -28,7 +32,10 @@ async function login(req, res, next) {
 async function signup(req, res, next) {
 	try {
 		const { username, password } = req.body;
-		// TODO:check inputs
+
+		// validate inputs
+		validator.username(username);
+		validator.password(password);
 
 		let foundUser = await users.findUserByUsername(username);
 		if (foundUser) {
@@ -45,7 +52,6 @@ async function signup(req, res, next) {
 			return res.json({ success: true, token, username: createdUser.username });
 		}
 	} catch (err) {
-		console.error(err);
 		next(err);
 	}
 }

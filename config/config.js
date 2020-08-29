@@ -24,6 +24,14 @@ const config = {
 			password: process.env.INIT_PASSWORD || 'Ehcan',
 		},
 	},
+	validator: {
+		username: {
+			minLength: parseInt(process.env.USERNAME_MIN_LENGTH) || 5,
+		},
+		password: {
+			minLength: parseInt(process.env.USERNAME_MIN_LENGTH) || 5,
+		},
+	},
 };
 
 module.exports = config;
