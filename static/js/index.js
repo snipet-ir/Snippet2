@@ -397,7 +397,7 @@ function openModal(id) {
 		editAble = false;
 	}
 
-	$('#code-modal .modal-body pre code').text(codeItem.code.replace(/\\n/g, '\n'));
+	$('#code-modal .modal-body pre code').text(codeItem.code).html();
 	$('#copyToClipboard').data('id', codeItem._id);
 	$('#editSnippet').data('id', codeItem._id);
 	$('#deleteSnippet').data('id', codeItem._id);
