@@ -23,7 +23,7 @@ async function getUsersSnipets(userID, q) {
 					owner: 0,
 				}
 			)
-			.sort({ updatedAt: -1 })
+			.sort({ favourite: -1, updatedAt: -1 })
 			.lean();
 	} catch (err) {
 		throw Error(`Can't get this user's snippets`);
@@ -62,7 +62,7 @@ async function getPublicSnipets(userID, q) {
 	}
 }
 
-async function upsertSnippet(userID, { id, title, description, public, tags, language, code }) {
+async function upsertSnippet(userID, { id, title, description, public, favourite, tags, language, code }) {
 	try {
 		if (id == '') {
 			id = mongoose.Types.ObjectId();
@@ -75,6 +75,7 @@ async function upsertSnippet(userID, { id, title, description, public, tags, lan
 				title,
 				description,
 				public,
+				favourite,
 				language,
 				code,
 				owner: userID,

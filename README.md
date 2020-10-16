@@ -32,7 +32,7 @@ Public Code:
 
 ~~2- Register~~
 
-3- Input Validation
+~~3- Input Validation~~
 
 ~~4- Public Snippets~~
 

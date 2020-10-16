@@ -104,3 +104,7 @@ body {
     max-height: calc(100% - 120px);
     overflow-y: scroll;
 }
+
+.text-light-grey {
+    color: #bdc4ca!important;
+}

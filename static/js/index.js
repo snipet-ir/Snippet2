@@ -359,11 +359,20 @@ function snippetsErrorHandler(err) {
 
 function getCodeTemplate(obj) {
 	let tagsString = '';
+	let favouriteString = '';
+
 	obj.tags.forEach(el => {
 		TAGS.add(el);
 		tagsString += `<span class="badge badge-primary mr-1 mt-1">${el}</span>`;
 	});
 	let owner = obj.owner ? ` by <code>${obj.owner}</code><br>` : '';
+	if (!obj.owner) {
+		const favouriteClass = obj.favourite ? 'text-danger' : 'text-light-grey';
+		const favouriteValue = +obj.favourite;
+		favouriteString = `<div class="ml-auto">
+			<i class="fi fi-heart ${favouriteClass}" data-value="${favouriteValue}"></i>
+		</div>`;
+	}
 	let template = `
 	<div class="card-code d-flex align-items-center p-3 my-3 cards-bg rounded box-shadow" data-id="${obj._id}">
 		<img
@@ -377,6 +386,7 @@ function getCodeTemplate(obj) {
 			${tagsString}<br>
 			<small>${obj.description}</small>
 		</div>
+		${favouriteString}
 	</div>
 	`;
 	return template;
@@ -436,6 +446,7 @@ function editSnippetHandler(e) {
 	$('#edit__title').val(codeItem.title);
 	$('#edit__description').val(codeItem.description);
 	$('#edit__public').prop('checked', codeItem.public);
+	$('#edit__favourite').prop('checked', codeItem.favourite);
 	$('#edit__code').val(codeItem.code);
 	$('#edit__language').val(codeItem.language).trigger('change');
 	$('#edit__tags').val(codeItem.tags).trigger('change');
@@ -451,6 +462,7 @@ function addSnippetHandler(e) {
 	$('#edit__title').val('');
 	$('#edit__description').val('');
 	$('#edit__public').prop('checked', false);
+	$('#edit__favourite').prop('checked', false);
 	$('#edit__code').val('');
 	$('#edit__language').val('').trigger('change');
 	$('#edit__tags').val([]).trigger('change');
@@ -473,21 +485,22 @@ function editSaveHandler(e) {
 	let title = $('#edit__title').val();
 	let description = $('#edit__description').val();
 	let public = $('#edit__public').prop('checked');
+	let favourite = $('#edit__favourite').prop('checked');
 	let code = $('#edit__code').val();
 	let language = $('#edit__language').val();
 	let tags = $('#edit__tags').val();
 
-	upsert({ id, title, description, public, code, language, tags });
+	upsert({ id, title, description, public, favourite, code, language, tags });
 }
 
-function upsert({ id, title, description, public, code, language, tags }) {
+function upsert({ id, title, description, public, favourite, code, language, tags }) {
 	$.ajax({
 		type: 'POST',
 		url: '/api/snippets',
 		headers: {
 			token: localStorage.getItem('token') || '',
 		},
-		data: JSON.stringify({ id, title, description, public, code, language, tags }),
+		data: JSON.stringify({ id, title, description, public, favourite, code, language, tags }),
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function (response) {
@@ -663,4 +676,8 @@ function passwordGenerator(length = 24) {
 		result += characters.charAt(Math.floor(Math.random() * charactersLength));
 	}
 	return result;
+}
+
+function favoriteToggle(e) {
+	console.log(e);
 }

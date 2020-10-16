@@ -8,6 +8,8 @@ const schema = mongoose.Schema(
 		language: String,
 		code: String,
 
+		favourite: { type: Boolean, default: false },
+
 		public: { type: Boolean, default: false, index: true },
 
 		owner: {
