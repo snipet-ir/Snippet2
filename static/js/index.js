@@ -351,6 +351,7 @@ function snippetsResponseHandler(response) {
 
 function snippetsErrorHandler(err) {
 	if (err.status == 401) {
+		localStorage.setItem('logedOut', true);
 		window.location.href = '/login';
 	} else {
 		alertify.error('🍩 Unknown Error 🎈');
