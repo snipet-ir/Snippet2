@@ -6,7 +6,7 @@
   "author": "ehcan@icloud.com",
   "license": "ISC",
   "scripts": {
-    "start":"node app.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "argon2": "^0.27.1",
