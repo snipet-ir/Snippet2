@@ -1,0 +1,10 @@
+{
+	"platform": "node",
+	"app": "snipet",
+	"port": 3000,
+    "node": {
+        "version": "14",
+        "npmAudit": true,
+        "timezone": "Asia/Tehran"
+    }
+}
