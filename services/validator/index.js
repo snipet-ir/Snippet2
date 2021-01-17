@@ -1,5 +1,4 @@
 module.exports = {
 	login: require('./login'),
-	username: require('./username'),
-	password: require('./password'),
+	signup: require('./signup'),
 };
