@@ -1,5 +1,4 @@
 const { users } = require('../../db');
-const HttpStatus = require('http-status-codes');
 const argon = require('../../services/argon2');
 
 async function updateProfile(req, res, next) {

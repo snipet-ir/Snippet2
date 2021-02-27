@@ -1,6 +1,6 @@
 const jwt = require('../jwt');
 const { users } = require('../../db');
-const HttpStatus = require('http-status-codes');
+const { StatusCodes } = require('http-status-codes');
 
 async function check(req, res, next) {
 	try {
@@ -10,7 +10,7 @@ async function check(req, res, next) {
 			return next();
 		}
 	} catch (err) {
-		return res.status(HttpStatus.UNAUTHORIZED).error(err.message);
+		return res.status(StatusCodes.UNAUTHORIZED).error(err.message);
 	}
 }
 
