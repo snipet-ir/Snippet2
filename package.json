@@ -11,9 +11,9 @@
   "dependencies": {
     "argon2": "^0.27.1",
     "express": "^4.17.1",
-    "helmet": "^4.3.1",
+    "helmet": "^4.4.1",
     "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.11"
+    "mongoose": "^5.11.18"
   }
 }
