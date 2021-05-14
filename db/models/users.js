@@ -5,6 +5,16 @@ const schema = mongoose.Schema(
 		username: { type: String, unique: true },
 		password: String,
 		ban: { type: Boolean, default: false },
+		otp: {
+			active: { type: Boolean, default: false },
+			secret: { type: String, default: '' },
+			backupCodes: [
+				{
+					code: String,
+					used: false,
+				},
+			],
+		},
 	},
 	{
 		versionKey: false,
