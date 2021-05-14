@@ -11,7 +11,7 @@ const schema = mongoose.Schema(
 			backupCodes: [
 				{
 					code: String,
-					used: false,
+					active: false,
 				},
 			],
 		},
