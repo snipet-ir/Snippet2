@@ -13,7 +13,7 @@ function loginResponseHandler(response) {
 		localStorage.setItem('logedOut', false);
 		window.location.href = '/';
 	} else {
-		alertify.error('Wrong Credentials');
+		alertify.error(response.error);
 	}
 }
 
@@ -36,11 +36,12 @@ function loginHandler(e) {
 	e.preventDefault();
 	let username = $('#user').val();
 	let password = $('#password').val();
+	let token = $('#token').val();
 
 	$.ajax({
 		type: 'POST',
 		url: '/api/login',
-		data: { username, password },
+		data: { username, password, token },
 		success: loginResponseHandler,
 	});
 }
