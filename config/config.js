@@ -32,6 +32,10 @@ const config = {
 			minLength: parseInt(process.env.USERNAME_MIN_LENGTH) || 5,
 		},
 	},
+	recaptcha: {
+		siteKey: process.env.RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+		secretKey: process.env.RECAPTCHA_SECRET_KEY || '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe',
+	},
 };
 
 module.exports = config;
