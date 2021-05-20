@@ -3,9 +3,9 @@ const { StatusCodes } = require('http-status-codes');
 
 async function getSnippets(req, res, next) {
 	try {
-		let userID = req.user._id;
-		let { q, public } = req.query;
-		let ret =
+		const userID = req.user._id;
+		const { q, public } = req.query;
+		const ret =
 			public == 'true' ? await snippets.getPublicSnipets(userID, q) : await snippets.getUsersSnipets(userID, q);
 
 		res.success(ret);
@@ -27,9 +27,9 @@ async function createSnippets(req, res, next) {
 
 async function deleteSnippets(req, res, next) {
 	try {
-		let userID = req.user._id;
-		let { id } = req.body;
-		let ret = await snippets.deleteSnippet(userID, id);
+		const userID = req.user._id;
+		const { id } = req.body;
+		const ret = await snippets.deleteSnippet(userID, id);
 		res.status(StatusCodes.NO_CONTENT).success(ret);
 	} catch (err) {
 		console.error(err);
