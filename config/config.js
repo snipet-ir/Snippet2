@@ -1,4 +1,5 @@
 const config = {
+	nodeEnv: process.env.NODE_ENV || 'dev',
 	mongodb: {
 		url: process.env.MONGODB || 'mongodb://localhost:27017/snippet',
 		options: {
