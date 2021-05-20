@@ -23,6 +23,7 @@
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-config" content="/static/images/fav/browserconfig.xml">
 		<meta name="theme-color" content="#ffffff">
+		<script src="https://www.google.com/recaptcha/api.js?render=<%= recaptchaSiteKey %>"></script>
 	</head>
 	<body>
 		<form class="form-signin">
@@ -46,6 +47,8 @@
 				<input type="password" id="password" class="form-control text-monospace" placeholder="Password" required />
 				<label for="password">Password</label>
 			</div>
+
+			<input hidden id="recaptchaSiteKey" value="<%= recaptchaSiteKey %>"/>
 
 			<button class="btn btn-lg btn-primary btn-block" id="login">Log in</button>
 			<button class="btn btn-lg btn-dark btn-block" id="signup">Sign Up</button>
