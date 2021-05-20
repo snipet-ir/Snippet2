@@ -1,13 +1,24 @@
+const config = require('../../config');
 const path = require('path');
+const files = {
+	index: path.resolve('static/index.html'),
+	login: path.resolve('static/login.html'),
+};
 
 async function index(req, res, next) {
-	let file = path.resolve('static/index.html');
-	res.sendFile(file);
+	const payload = {
+		message: 'Hello, world!',
+	};
+
+	res.render(files.index, payload);
 }
 
 async function login(req, res, next) {
-	let file = path.resolve('static/login.html');
-	res.sendFile(file);
+	const payload = {
+		recaptchaSiteKey: config.recaptcha.siteKey,
+	};
+
+	res.render(files.login, payload);
 }
 
 module.exports = {

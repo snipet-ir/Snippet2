@@ -34,28 +34,36 @@ function signupErrorHandler(err) {
 
 function loginHandler(e) {
 	e.preventDefault();
-	let username = $('#user').val();
-	let password = $('#password').val();
+	const username = $('#user').val();
+	const password = $('#password').val();
+	const recaptchaSiteKey = $('#recaptchaSiteKey').val();
 
-	$.ajax({
-		type: 'POST',
-		url: '/api/login',
-		data: { username, password },
-		success: loginResponseHandler,
+	grecaptcha.execute(recaptchaSiteKey, { action: 'login' }).then(token => {
+		console.log({ token });
+		$.ajax({
+			type: 'POST',
+			url: '/api/login',
+			data: { username, password, token },
+			success: loginResponseHandler,
+		});
 	});
 }
 
 function signupHandler(e) {
 	e.preventDefault();
-	let username = $('#user').val();
-	let password = $('#password').val();
+	const username = $('#user').val();
+	const password = $('#password').val();
+	const recaptchaSiteKey = $('#recaptchaSiteKey').val();
 
-	$.ajax({
-		type: 'POST',
-		url: '/api/signup',
-		data: { username, password },
-		success: signupResponseHandler,
-		error: signupErrorHandler,
+	grecaptcha.execute(recaptchaSiteKey, { action: 'signup' }).then(token => {
+		console.log({ token });
+		$.ajax({
+			type: 'POST',
+			url: '/api/signup',
+			data: { username, password, token },
+			success: signupResponseHandler,
+			error: signupErrorHandler,
+		});
 	});
 }
 
