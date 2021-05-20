@@ -9,6 +9,11 @@ app.disable('x-powered-by');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(function (req, res, next) {
+	res.set(
+		'Content-Security-Policy',
+		"default-src 'self' https://*.google.com https://*.gstatic.com; object-src 'self'"
+	);
+
 	var json = res.json;
 	res.success = function (obj) {
 		json.call(this, responseManager.success(obj));
@@ -21,6 +26,9 @@ app.use(function (req, res, next) {
 
 // define routes
 app.use('/static', express.static(__dirname + '/static'));
+
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 app.use('/api', require('./routes/api/login'));
 app.use('/api', require('./routes/api/main'));
