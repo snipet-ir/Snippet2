@@ -39,7 +39,6 @@ function loginHandler(e) {
 	const recaptchaSiteKey = $('#recaptchaSiteKey').val();
 
 	grecaptcha.execute(recaptchaSiteKey, { action: 'login' }).then(token => {
-		console.log({ token });
 		$.ajax({
 			type: 'POST',
 			url: '/api/login',
@@ -56,7 +55,6 @@ function signupHandler(e) {
 	const recaptchaSiteKey = $('#recaptchaSiteKey').val();
 
 	grecaptcha.execute(recaptchaSiteKey, { action: 'signup' }).then(token => {
-		console.log({ token });
 		$.ajax({
 			type: 'POST',
 			url: '/api/signup',

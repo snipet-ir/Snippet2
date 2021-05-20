@@ -3,10 +3,16 @@ const jwt = require('../../services/jwt');
 const { users } = require('../../db');
 const argon = require('../../services/argon2');
 const validator = require('../../services/validator');
+const recaptcha = require('../../services/recaptcha');
 
 async function login(req, res, next) {
 	try {
-		const { username, password } = req.body;
+		const { username, password, token } = req.body;
+
+		const recaptchaResponse = await recaptcha.verify(token);
+		if (!recaptchaResponse) {
+			throw Error('Error on recaptcha validation');
+		}
 
 		// validate inputs
 		validator.username(username);
@@ -31,7 +37,12 @@ async function login(req, res, next) {
 
 async function signup(req, res, next) {
 	try {
-		const { username, password } = req.body;
+		const { username, password, token } = req.body;
+
+		const recaptchaResponse = await recaptcha.verify(token);
+		if (!recaptchaResponse) {
+			throw Error('Error on recaptcha validation');
+		}
 
 		// validate inputs
 		validator.username(username);
