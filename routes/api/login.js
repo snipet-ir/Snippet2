@@ -4,6 +4,6 @@ const controller = require('../../controllers/api/login');
 const validator = require('../../services/validator');
 
 router.post('/login', validator.login, controller.login);
-router.post('/signup', controller.signup);
+router.post('/signup', validator.signup, controller.signup);
 
 module.exports = router;

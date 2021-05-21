@@ -1,8 +1,6 @@
-const config = require('../../config');
 const jwt = require('../../services/jwt');
 const { users } = require('../../db');
 const argon = require('../../services/argon2');
-const validator = require('../../services/validator');
 const recaptcha = require('../../services/recaptcha');
 
 async function login(req, res, next) {
@@ -13,10 +11,6 @@ async function login(req, res, next) {
 		if (!recaptchaResponse) {
 			throw Error('Error on recaptcha validation');
 		}
-
-		// validate inputs
-		validator.username(username);
-		validator.password(password);
 
 		let foundUser = await users.findUserByUsername(username);
 		if (!foundUser) {
@@ -43,10 +37,6 @@ async function signup(req, res, next) {
 		if (!recaptchaResponse) {
 			throw Error('Error on recaptcha validation');
 		}
-
-		// validate inputs
-		validator.username(username);
-		validator.password(password);
 
 		let foundUser = await users.findUserByUsername(username);
 		if (foundUser) {

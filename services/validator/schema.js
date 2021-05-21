@@ -17,7 +17,9 @@ const login = {
 		token: joi.string().required(),
 	}),
 };
+const signup = login;
 
 module.exports = {
 	login,
+	signup,
 };

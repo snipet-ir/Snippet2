@@ -12,8 +12,18 @@ function login(req, res, next) {
 	}
 }
 
+function signup(req, res, next) {
+	try {
+		const { error } = schema.signup.body.validate(req.body, config.validator.joiConfigs);
+		if (error) {
+			throw Error(error);
+		}
+	} catch (err) {
+		next(err);
+	}
+}
+
 module.exports = {
-	username: require('./username'),
-	password: require('./password'),
 	login,
+	signup,
 };
