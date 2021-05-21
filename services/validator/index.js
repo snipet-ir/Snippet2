@@ -37,8 +37,34 @@ function updateProfile(req, res, next) {
 	}
 }
 
+function getSnippet(req, res, next) {
+	try {
+		const { error } = schema.getSnippet.query.validate(req.query, config.validator.joiConfigs);
+		if (error) {
+			throw Error(error);
+		}
+		return next();
+	} catch (err) {
+		next(err);
+	}
+}
+
+function deleteSnippet(req, res, next) {
+	try {
+		const { error } = schema.deleteSnippet.body.validate(req.body, config.validator.joiConfigs);
+		if (error) {
+			throw Error(error);
+		}
+		return next();
+	} catch (err) {
+		next(err);
+	}
+}
+
 module.exports = {
 	login,
 	signup,
 	updateProfile,
+	getSnippet,
+	deleteSnippet,
 };

@@ -14,7 +14,7 @@ const login = {
 			.min(config.validator.password.minLength)
 			.max(config.validator.password.maxLength)
 			.required(),
-		token: joi.string().required(),
+		token: joi.string().required().allow(null, ''),
 	}),
 };
 const signup = login;
@@ -33,8 +33,24 @@ const updateProfile = {
 			.required(),
 	}),
 };
+
+const getSnippet = {
+	query: joi.object().keys({
+		q: joi.string().allow(null, ''),
+		public: joi.string().valid('true', 'false').required(),
+	}),
+};
+
+const deleteSnippet = {
+	body: joi.object().keys({
+		id: joi.string().length(24).required(),
+	}),
+};
+
 module.exports = {
 	login,
 	signup,
 	updateProfile,
+	getSnippet,
+	deleteSnippet,
 };
