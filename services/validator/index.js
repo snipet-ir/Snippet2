@@ -49,6 +49,18 @@ function getSnippet(req, res, next) {
 	}
 }
 
+function createSnippet(req, res, next) {
+	try {
+		const { error } = schema.createSnippet.body.validate(req.body, config.validator.joiConfigs);
+		if (error) {
+			throw Error(error);
+		}
+		return next();
+	} catch (err) {
+		next(err);
+	}
+}
+
 function deleteSnippet(req, res, next) {
 	try {
 		const { error } = schema.deleteSnippet.body.validate(req.body, config.validator.joiConfigs);
@@ -66,5 +78,6 @@ module.exports = {
 	signup,
 	updateProfile,
 	getSnippet,
+	createSnippet,
 	deleteSnippet,
 };

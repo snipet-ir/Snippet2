@@ -505,8 +505,12 @@ function upsert({ id, title, description, public, favourite, code, language, tag
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function (response) {
-			$('#code-modal').modal('hide');
-			getSnippetsData();
+			if (response.success) {
+				$('#code-modal').modal('hide');
+				getSnippetsData();
+			} else {
+				alertify.error(response.error);
+			}
 		},
 	});
 }

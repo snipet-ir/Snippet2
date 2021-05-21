@@ -41,6 +41,19 @@ const getSnippet = {
 	}),
 };
 
+const createSnippet = {
+	body: joi.object().keys({
+		id: joi.string().length(24).allow(null, ''),
+		title: joi.string().min(3).max(72).required(),
+		description: joi.string().min(3).max(72).allow(null, ''),
+		public: joi.boolean().required(),
+		favourite: joi.boolean().required(),
+		tags: joi.array().items(joi.string()).required(),
+		language: joi.string().allow(null, ''),
+		code: joi.string().allow(null, ''),
+	}),
+};
+
 const deleteSnippet = {
 	body: joi.object().keys({
 		id: joi.string().length(24).required(),
@@ -52,5 +65,6 @@ module.exports = {
 	signup,
 	updateProfile,
 	getSnippet,
+	createSnippet,
 	deleteSnippet,
 };

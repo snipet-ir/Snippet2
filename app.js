@@ -11,7 +11,11 @@ app.use(express.json());
 app.use(function (req, res, next) {
 	res.set(
 		'Content-Security-Policy',
-		"default-src 'self' https://*.google.com https://*.gstatic.com; object-src 'self'"
+		[
+			`default-src 'self' https://*.google.com https://*.gstatic.com`,
+			`style-src 'self' 'unsafe-inline'`,
+			`object-src 'self'`,
+		].join('; ')
 	);
 
 	var json = res.json;
