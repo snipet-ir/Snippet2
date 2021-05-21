@@ -1,11 +1,14 @@
 const jwt = require('../jwt');
 const { users } = require('../../db');
-const { StatusCodes } = require('http-status-codes');
+const { StatusCodes, ReasonPhrases } = require('http-status-codes');
 const cache = require('../cache');
 
 async function check(req, res, next) {
 	try {
 		const token = req.headers.token;
+		if (!token) {
+			throw Error(ReasonPhrases.UNAUTHORIZED);
+		}
 
 		// Check in cache
 		const cacheRes = cache.get(token);

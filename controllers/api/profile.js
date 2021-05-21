@@ -1,5 +1,6 @@
 const { users } = require('../../db');
 const argon = require('../../services/argon2');
+const { StatusCodes } = require('http-status-codes');
 
 async function updateProfile(req, res, next) {
 	try {
@@ -7,10 +8,10 @@ async function updateProfile(req, res, next) {
 
 		// given old password is wrong!
 		if (!(await argon.verify(req.user.password, oldPassword))) {
-			return res.status(HttpStatus.FORBIDDEN).json({ success: false, message: 'Old Password is wrong!' });
+			return res.status(StatusCodes.FORBIDDEN).json({ success: false, message: 'Old Password is wrong!' });
 		}
 
-		let newPasswordHash = await argon.hash(newPassword);
+		const newPasswordHash = await argon.hash(newPassword);
 
 		await users.updatePassword(req.user._id, newPasswordHash);
 

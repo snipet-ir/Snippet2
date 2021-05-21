@@ -28,11 +28,18 @@ const config = {
 		},
 	},
 	validator: {
+		joiConfigs: {
+			abortEarly: false,
+			allowUnknown: true,
+			stripUnknown: true,
+		},
 		username: {
 			minLength: env.num('USERNAME_MIN_LENGTH', 5),
+			maxLength: env.num('USERNAME_MAX_LENGTH', 36),
 		},
 		password: {
 			minLength: env.num('PASSWORD_MIN_LENGTH', 8),
+			maxLength: env.num('PASSWORD_MAX_LENGTH', 128),
 		},
 	},
 	recaptcha: {
