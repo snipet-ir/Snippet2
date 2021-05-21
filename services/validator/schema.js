@@ -19,7 +19,22 @@ const login = {
 };
 const signup = login;
 
+const updateProfile = {
+	body: joi.object().keys({
+		oldPassword: joi
+			.string()
+			.min(config.validator.password.minLength)
+			.max(config.validator.password.maxLength)
+			.required(),
+		newPassword: joi
+			.string()
+			.min(config.validator.password.minLength)
+			.max(config.validator.password.maxLength)
+			.required(),
+	}),
+};
 module.exports = {
 	login,
 	signup,
+	updateProfile,
 };
