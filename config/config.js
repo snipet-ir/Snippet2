@@ -1,9 +1,9 @@
 const env = require('@ehcan/envparser');
 
 const config = {
-	nodeEnv: env.str(NODE_ENV, 'dev'),
+	nodeEnv: env.str('NODE_ENV', 'dev'),
 	mongodb: {
-		url: env.str(MONGODB, 'mongodb://localhost:27017/snippet'),
+		url: env.str('MONGODB', 'mongodb://localhost:27017/snippet'),
 		options: {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
@@ -12,7 +12,7 @@ const config = {
 		},
 	},
 	jwt: {
-		secretKey: env.str(JWT_SECRET, 'JWT_SECRET'),
+		secretKey: env.str('JWT_SECRET', 'JWT_SECRET'),
 	},
 	cookie: {
 		options: {
@@ -23,22 +23,22 @@ const config = {
 	},
 	initSetup: {
 		user: {
-			username: env.str(INIT_USERNAME, 'Ehcan'),
-			password: env.str(INIT_PASSWORD, 'Ehcan'),
+			username: env.str('INIT_USERNAME', 'Ehcan'),
+			password: env.str('INIT_PASSWORD', 'Ehcan'),
 		},
 	},
 	validator: {
 		username: {
-			minLength: env.num(USERNAME_MIN_LENGTH, 5),
+			minLength: env.num('USERNAME_MIN_LENGTH', 5),
 		},
 		password: {
-			minLength: env.num(USERNAME_MIN_LENGTH, 5),
+			minLength: env.num('PASSWORD_MIN_LENGTH', 8),
 		},
 	},
 	recaptcha: {
 		// Keys are not the actual keys :) Provided by google for test purposes
-		siteKey: env.str(RECAPTCHA_SITE_KEY, '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'),
-		secretKey: env.str(RECAPTCHA_SECRET_KEY, '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'),
+		siteKey: env.str('RECAPTCHA_SITE_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'),
+		secretKey: env.str('RECAPTCHA_SECRET_KEY', '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'),
 	},
 };
 
