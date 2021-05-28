@@ -20,5 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.10",
     "node-cache": "^5.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.27.0"
   }
 }
