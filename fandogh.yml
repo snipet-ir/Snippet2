@@ -1,0 +1,36 @@
+kind: ExternalService
+name: snipet-ir
+spec:
+  allow_http: true
+  domains:
+    - name: snipet.ir
+  env:
+    - hidden: false
+      name: NODE_ENV
+      value: production
+    - hidden: false
+      name: MONGODB
+      secret: snipet-mongodb
+    - hidden: false
+      name: JWT_SECRET
+      secret: snipet-jwt-secret
+    - hidden: false
+      name: RECAPTCHA_SITE_KEY
+      secret: snipet-recaptcha-site-key
+    - hidden: false
+      name: RECAPTCHA_SECRET_KEY
+      secret: snipet-recaptcha-secret-key
+    - hidden: false
+      name: PORT
+      value: '80'
+  image: 'snipet-ir:latest'
+  image_pull_policy: IfNotPresent
+  path: /
+  port: 80
+  replicas: 1
+  resources:
+    memory: 200Mi
+  source:
+    context: .
+    node_version: '14'
+    project_type: nodejs
