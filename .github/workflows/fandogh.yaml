@@ -16,5 +16,5 @@ jobs:
           FANDOGH_PASSWORD: ${{ secrets.FANDOGH_PASSWORD }}
         run: |
           pip install fandogh_cli --upgrade
-          fandogh login --username=$FANDOGH_USERNAME --password=$FANDOGH_PASSWORD
+          COLLECT_ERROR=True fandogh login --username=$FANDOGH_USERNAME --password=$FANDOGH_PASSWORD
           fandogh source run
