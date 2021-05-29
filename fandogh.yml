@@ -2,6 +2,7 @@ kind: ExternalService
 name: snipet-ir
 spec:
   allow_http: true
+  replicas: 1
   domains:
     - name: snipet.ir
   env:

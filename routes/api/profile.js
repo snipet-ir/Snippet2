@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express();
+const router = express.Router();
 const controller = require('../../controllers/api/profile');
 const auth = require('../../services/middlewares');
 const validator = require('../../services/validator');
