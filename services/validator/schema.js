@@ -14,7 +14,7 @@ const login = {
 			.min(config.validator.password.minLength)
 			.max(config.validator.password.maxLength)
 			.required(),
-		token: joi.string().required().allow(null, ''),
+		recaptchaToken: joi.string().required().allow(null, ''),
 	}),
 };
 const signup = login;

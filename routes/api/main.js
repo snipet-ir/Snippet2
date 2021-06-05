@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../../controllers/api/main');
-const auth = require('../../services/middlewares');
+const middleware = require('../../services/middlewares');
 const validator = require('../../services/validator');
 
-router.get('/snippets', validator.getSnippet, auth.check, controller.getSnippets);
-router.post('/snippets', validator.createSnippet, auth.check, controller.createSnippets);
-router.delete('/snippets', validator.deleteSnippet, auth.check, controller.deleteSnippets);
+router.get('/snippets', validator.getSnippet, middleware.authenticationCheck, controller.getSnippets);
+router.post('/snippets', validator.createSnippet, middleware.authenticationCheck, controller.createSnippets);
+router.delete('/snippets', validator.deleteSnippet, middleware.authenticationCheck, controller.deleteSnippets);
 
 module.exports = router;

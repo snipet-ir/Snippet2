@@ -8,19 +8,17 @@ async function getSnippets(req, res, next) {
 		const ret =
 			public == 'true' ? await snippets.getPublicSnipets(userID, q) : await snippets.getUsersSnipets(userID, q);
 
-		res.success(ret);
+		res.json({ snippets: ret });
 	} catch (err) {
-		console.error(err);
 		next(err);
 	}
 }
 
 async function createSnippets(req, res, next) {
 	try {
-		let createRes = await snippets.upsertSnippet(req.user._id, req.body);
-		res.status(StatusCodes.CREATED).success(createRes);
+		const createRes = await snippets.upsertSnippet(req.user._id, req.body);
+		res.status(StatusCodes.CREATED).json({ result: createRes });
 	} catch (err) {
-		console.error(err);
 		next(err);
 	}
 }
@@ -30,9 +28,8 @@ async function deleteSnippets(req, res, next) {
 		const userID = req.user._id;
 		const { id } = req.body;
 		const ret = await snippets.deleteSnippet(userID, id);
-		res.status(StatusCodes.NO_CONTENT).success(ret);
+		res.status(StatusCodes.NO_CONTENT).json();
 	} catch (err) {
-		console.error(err);
 		next(err);
 	}
 }

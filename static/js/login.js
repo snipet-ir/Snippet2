@@ -7,29 +7,25 @@ if (localStorage.getItem('token')) {
 }
 
 function loginResponseHandler(response) {
-	if (response.success) {
-		localStorage.setItem('token', response.token);
-		localStorage.setItem('username', response.username);
-		localStorage.setItem('logedOut', false);
-		window.location.href = '/';
-	} else {
-		alertify.error('Wrong Credentials');
-	}
+	localStorage.setItem('token', response.token);
+	localStorage.setItem('username', response.username);
+	localStorage.setItem('logedOut', false);
+	window.location.href = '/';
+}
+
+function loginErrorHandler(err) {
+	alertify.error(err.responseJSON.message);
 }
 
 function signupResponseHandler(response) {
-	if (response.success) {
-		localStorage.setItem('token', response.token);
-		localStorage.setItem('username', response.username);
-		window.location.href = '/';
-	} else {
-		alertify.error(response.error);
-	}
+	localStorage.setItem('token', response.token);
+	localStorage.setItem('username', response.username);
+	localStorage.setItem('logedOut', false);
+	window.location.href = '/';
 }
 
 function signupErrorHandler(err) {
-	console.error(err);
-	alertify.error('Unknown Error!');
+	alertify.error(err.responseJSON.message);
 }
 
 function loginHandler(e) {
@@ -38,12 +34,13 @@ function loginHandler(e) {
 	const password = $('#password').val();
 	const recaptchaSiteKey = $('#recaptchaSiteKey').val();
 
-	grecaptcha.execute(recaptchaSiteKey, { action: 'login' }).then(token => {
+	grecaptcha.execute(recaptchaSiteKey, { action: 'login' }).then(recaptchaToken => {
 		$.ajax({
 			type: 'POST',
 			url: '/api/login',
-			data: { username, password, token },
+			data: { username, password, recaptchaToken },
 			success: loginResponseHandler,
+			error: loginErrorHandler,
 		});
 	});
 }
@@ -54,11 +51,11 @@ function signupHandler(e) {
 	const password = $('#password').val();
 	const recaptchaSiteKey = $('#recaptchaSiteKey').val();
 
-	grecaptcha.execute(recaptchaSiteKey, { action: 'signup' }).then(token => {
+	grecaptcha.execute(recaptchaSiteKey, { action: 'signup' }).then(recaptchaToken => {
 		$.ajax({
 			type: 'POST',
 			url: '/api/signup',
-			data: { username, password, token },
+			data: { username, password, recaptchaToken },
 			success: signupResponseHandler,
 			error: signupErrorHandler,
 		});

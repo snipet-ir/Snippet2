@@ -2,8 +2,10 @@ const jwt = require('../jwt');
 const { users } = require('../../db');
 const { StatusCodes, ReasonPhrases } = require('http-status-codes');
 const cache = require('../cache');
+const recaptcha = require('../recaptcha');
+const error = require('../errors');
 
-async function check(req, res, next) {
+async function authenticationCheck(req, res, next) {
 	try {
 		const token = req.headers.token;
 		if (!token) {
@@ -25,10 +27,25 @@ async function check(req, res, next) {
 			return next();
 		}
 	} catch (err) {
-		return res.status(StatusCodes.UNAUTHORIZED).error(err.message);
+		return res.status(StatusCodes.UNAUTHORIZED).json({ message: err.message });
+	}
+}
+
+async function recaptchaCheck(req, res, next) {
+	try {
+		const { recaptchaToken } = req.body;
+
+		const recaptchaResponse = await recaptcha.verify(recaptchaToken);
+		if (!recaptchaResponse) {
+			throw error.RECAPTCHA_VALIDATION;
+		}
+		next();
+	} catch (err) {
+		next(err);
 	}
 }
 
 module.exports = {
-	check,
+	authenticationCheck,
+	recaptchaCheck,
 };

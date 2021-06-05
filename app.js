@@ -2,8 +2,7 @@ require('./db/_conn');
 const express = require('express');
 const app = express();
 const helmet = require('helmet');
-const responseManager = require('./services/responseManager');
-// set middlewares
+
 app.use(helmet());
 app.disable('x-powered-by');
 app.use(express.urlencoded({ extended: false }));
@@ -15,16 +14,8 @@ app.use(function (req, res, next) {
 			`default-src 'self' https://*.google.com https://*.gstatic.com`,
 			`style-src 'self' 'unsafe-inline'`,
 			`object-src 'self'`,
-		].join('; ')
+		].join('; '),
 	);
-
-	var json = res.json;
-	res.success = function (obj) {
-		json.call(this, responseManager.success(obj));
-	};
-	res.error = function (obj) {
-		json.call(this, responseManager.error(obj));
-	};
 	next();
 });
 
@@ -39,8 +30,6 @@ app.use('/api', require('./routes/api/main'));
 app.use('/api', require('./routes/api/profile'));
 app.use('/', require('./routes/views'));
 
-app.use((error, req, res, next) => {
-	return res.error(error.message);
-});
+app.use(require('./services/errors/handler'));
 
 app.listen(process.env.PORT || 3000);

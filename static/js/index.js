@@ -335,15 +335,10 @@ function getSnippetsData() {
 }
 
 function snippetsResponseHandler(response) {
-	if (!response.success) {
-		console.error('Error on loading Snippets');
-		return;
-	}
-
-	DATA = response.result;
+	DATA = response.snippets;
 
 	$('main.snippets').empty();
-	response.result.forEach(el => {
+	DATA.forEach(el => {
 		$('main.snippets').append(getCodeTemplate(el));
 	});
 	setCardCodeClickHandler();
@@ -354,7 +349,7 @@ function snippetsErrorHandler(err) {
 		localStorage.setItem('logedOut', true);
 		window.location.href = '/login';
 	} else {
-		alertify.error('🍩 Unknown Error 🎈');
+		alertify.error(err.responseJSON.message);
 	}
 }
 
@@ -505,12 +500,11 @@ function upsert({ id, title, description, public, favourite, code, language, tag
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function (response) {
-			if (response.success) {
-				$('#code-modal').modal('hide');
-				getSnippetsData();
-			} else {
-				alertify.error(response.error);
-			}
+			$('#code-modal').modal('hide');
+			getSnippetsData();
+		},
+		error: function (err) {
+			alertify.error(err.responseJSON.message);
 		},
 	});
 }
@@ -578,7 +572,7 @@ function deleteSnippetHandler(e) {
 					},
 				});
 			},
-			function () {}
+			function () {},
 		)
 		.set('modal', true);
 }
@@ -634,7 +628,7 @@ function private_public_handler(e) {
 	e.preventDefault();
 	PUBLIC = !PUBLIC;
 	$(this).html(
-		PUBLIC ? `<i class="fi fi-toggle-on"></i> Public Snippets` : `<i class="fi fi-toggle-off"></i> My Snippets`
+		PUBLIC ? `<i class="fi fi-toggle-on"></i> Public Snippets` : `<i class="fi fi-toggle-off"></i> My Snippets`,
 	);
 	getSnippetsData();
 }
@@ -668,7 +662,7 @@ function copyToClipboard(text) {
 
 	navigator.clipboard.writeText(text).then(
 		function () {},
-		function (err) {}
+		function (err) {},
 	);
 	alertify.success('🍩 Copied to Clipboard 🎈');
 }
