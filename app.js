@@ -1,10 +1,12 @@
 require('./db/_conn');
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const helmet = require('helmet');
 const responseManager = require('./services/responseManager');
 // set middlewares
 app.use(helmet());
+app.use(cors());
 app.disable('x-powered-by');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -15,7 +17,7 @@ app.use(function (req, res, next) {
 			`default-src 'self' https://*.google.com https://*.gstatic.com`,
 			`style-src 'self' 'unsafe-inline'`,
 			`object-src 'self'`,
-		].join('; ')
+		].join('; '),
 	);
 
 	var json = res.json;
