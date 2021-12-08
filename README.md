@@ -1,8 +1,6 @@
 ## Code Snipept2:
 A simple code snippet.
 
-Powered by [fandogh](https://www.fandogh.cloud)
-
 Login:
 ![Login](docs/login.png "Login")
 
