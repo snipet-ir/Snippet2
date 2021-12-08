@@ -7,8 +7,6 @@ const config = {
 		options: {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
-			useCreateIndex: true,
-			useFindAndModify: false,
 		},
 	},
 	jwt: {

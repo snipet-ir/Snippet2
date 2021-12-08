@@ -21,8 +21,8 @@ async function login(req, res, next) {
 			throw Error(`username and password didn't match`);
 		}
 
-		const token = jwt.getToken({ id: foundUser._id, username });
-		return res.json({ success: true, token, username: foundUser.username });
+		const jwtToken = jwt.getToken({ id: foundUser._id, username });
+		return res.json({ success: true, token: jwtToken, username: foundUser.username });
 	} catch (err) {
 		console.error(err);
 		next(err);
