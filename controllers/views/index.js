@@ -8,7 +8,6 @@ const { version } = require('../../package.json');
 
 async function index(req, res, next) {
 	const payload = {
-		message: 'Hello, world!',
 		version,
 	};
 

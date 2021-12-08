@@ -6,7 +6,7 @@ async function getSnippets(req, res, next) {
 		const userID = req.user._id;
 		const { q, public } = req.query;
 		const ret =
-			public == 'true' ? await snippets.getPublicSnipets(userID, q) : await snippets.getUsersSnipets(userID, q);
+			public === 'true' ? await snippets.getPublicSnipets(userID, q) : await snippets.getUsersSnipets(userID, q);
 
 		res.success(ret);
 	} catch (err) {
@@ -17,7 +17,7 @@ async function getSnippets(req, res, next) {
 
 async function createSnippets(req, res, next) {
 	try {
-		let createRes = await snippets.upsertSnippet(req.user._id, req.body);
+		const createRes = await snippets.upsertSnippet(req.user._id, req.body);
 		res.status(StatusCodes.CREATED).success(createRes);
 	} catch (err) {
 		console.error(err);
