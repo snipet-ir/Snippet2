@@ -371,7 +371,7 @@ function getCodeTemplate(obj) {
 		const favouriteClass = obj.favourite ? 'text-danger' : 'text-light-grey';
 		const favouriteValue = +obj.favourite;
 		favouriteString = `<div class="ml-auto">
-			<i class="fi fi-heart ${favouriteClass}" data-value="${favouriteValue}"></i>
+			<i class="fi fi-heart ${favouriteClass}" data-value="${favouriteValue}" aria-hidden="true"></i>
 		</div>`;
 	}
 	let template = `
@@ -578,7 +578,7 @@ function deleteSnippetHandler(e) {
 					},
 				});
 			},
-			function () {}
+			function () {},
 		)
 		.set('modal', true);
 }
@@ -634,7 +634,9 @@ function private_public_handler(e) {
 	e.preventDefault();
 	PUBLIC = !PUBLIC;
 	$(this).html(
-		PUBLIC ? `<i class="fi fi-toggle-on"></i> Public Snippets` : `<i class="fi fi-toggle-off"></i> My Snippets`
+		PUBLIC
+			? `<i class="fi fi-toggle-on" aria-hidden="true"></i> Public Snippets`
+			: `<i class="fi fi-toggle-off" aria-hidden="true"></i> My Snippets`,
 	);
 	getSnippetsData();
 }
@@ -668,7 +670,7 @@ function copyToClipboard(text) {
 
 	navigator.clipboard.writeText(text).then(
 		function () {},
-		function (err) {}
+		function (err) {},
 	);
 	alertify.success('🍩 Copied to Clipboard 🎈');
 }
