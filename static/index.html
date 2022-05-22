@@ -41,11 +41,11 @@
 
 		<div class="nav-scroller bg-white box-shadow">
 			<nav class="nav nav-underline">
-				<a class="nav-link" id="addSnippet" href="#"><i class="fi fi-plus-a"></i> Add Snippet</a>
-				<a class="nav-link" id="private_public" href="#"><i class="fi fi-toggle-off"></i> My Snippets</a>
-				<a class="nav-link" id="profile" href="#"><i class="fi fi-person"></i> Profile</a>
-				<a class="nav-link" target="_blank" href="https://github.com/Snipet-ir/Snippet2"><i class="fi fi-github"></i> Github</a>
-				<a class="nav-link" id="logout" href="#"><i class="fi fi-power"></i> Logout</a>
+				<a class="nav-link" id="addSnippet" href="#"><i class="fi fi-plus-a" aria-hidden="true"></i> Add Snippet</a>
+				<a class="nav-link" id="private_public" href="#"><i class="fi fi-toggle-off" aria-hidden="true"></i> My Snippets</a>
+				<a class="nav-link" id="profile" href="#"><i class="fi fi-person" aria-hidden="true"></i> Profile</a>
+				<a class="nav-link" target="_blank" href="https://github.com/Snipet-ir/Snippet2"><i class="fi fi-github" aria-hidden="true"></i> Github</a>
+				<a class="nav-link" id="logout" href="#"><i class="fi fi-power" aria-hidden="true"></i> Logout</a>
 			</nav>
 		</div>
 
@@ -53,8 +53,8 @@
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="btn btn-primary" id="copyToClipboard" data-id=""><i class="fi fi-paste"></i> Copy to Clipboard</button>
-						<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fi fi-close-a"></i> Close</button>
+						<button type="button" class="btn btn-primary" id="copyToClipboard" data-id=""><i class="fi fi-paste" aria-hidden="true"></i> Copy to Clipboard</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fi fi-close-a" aria-hidden="true"></i> Close</button>
 					</div>
 					<div class="modal-body">
 						<pre><code></code></pre>
@@ -62,12 +62,12 @@
 							<input id="edit__id" hidden>
 
 							<div class="form-group">
-								<label for="edit__title" class="col-form-label"><i class="fi fi-file-1"></i> Title:</label>
+								<label for="edit__title" class="col-form-label"><i class="fi fi-file-1" aria-hidden="true"></i> Title:</label>
 								<input type="text" class="form-control" id="edit__title">
 							</div>
 
 							<div class="form-group">
-								<label for="edit__description" class="col-form-label"><i class="fi fi-file-1"></i> Description:</label>
+								<label for="edit__description" class="col-form-label"><i class="fi fi-file-1" aria-hidden="true"></i> Description:</label>
 								<input type="text" class="form-control" id="edit__description">
 							</div>
 
@@ -78,23 +78,23 @@
 
 							<div class="form-group form-check">
 								<input type="checkbox" class="form-check-input" id="edit__favourite">
-								<label class="form-check-label" for="edit__favourite">Favourite <i class="fi fi-heart text-danger"></i></label>
+								<label class="form-check-label" for="edit__favourite">Favourite <i class="fi fi-heart text-danger" aria-hidden="true"></i></label>
 							</div>
 
 							<div class="form-group">
-								<label for="edit__code" class="col-form-label"><i class="fi fi-code"></i> Code:</label>
+								<label for="edit__code" class="col-form-label"><i class="fi fi-code" aria-hidden="true"></i> Code:</label>
 								<textarea id="edit__code" class="form-control text-monospace" rows="15"></textarea>
 							</div>
 
 							<div class="form-group">
-								<label for="edit__language" class="col-form-label"><i class="fi fi-world-o"></i> Language:</label>
+								<label for="edit__language" class="col-form-label"><i class="fi fi-world-o" aria-hidden="true"></i> Language:</label>
 								<select class="form-control text-monospace" id="edit__language" width="100%">
 									<option selected disabled value="">Select a language</option>
 								</select>
 							</div>
 
 							<div class="form-group">
-								<label for="edit__tags" class="col-form-label"><i class="fi fi-ticket"></i> Tags:</label>
+								<label for="edit__tags" class="col-form-label"><i class="fi fi-ticket" aria-hidden="true"></i> Tags:</label>
 								<select class="form-control text-monospace" multiple="multiple" id="edit__tags" width="100%">
 								</select>
 							</div>
@@ -103,10 +103,10 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" id="deleteSnippet" data-id=""><i class="fi fi-trash"></i> Delete</button>
-						<button type="button" class="btn btn-dark" id="editSnippet" data-id=""><i class="fi fi-italic"></i> Edit</button>
-						<button type="button" class="btn btn-secondary" id="edit__cancel" style="display: none;"><i class="fi fi-close-a"></i> Cancel</button>
-						<button type="button" class="btn btn-success" id="edit__save" style="display: none;"><i class="fi fi-save"></i> Save</button>
+						<button type="button" class="btn btn-danger" id="deleteSnippet" data-id=""><i class="fi fi-trash" aria-hidden="true"></i> Delete</button>
+						<button type="button" class="btn btn-dark" id="editSnippet" data-id=""><i class="fi fi-italic" aria-hidden="true"></i> Edit</button>
+						<button type="button" class="btn btn-secondary" id="edit__cancel" style="display: none;"><i class="fi fi-close-a" aria-hidden="true"></i> Cancel</button>
+						<button type="button" class="btn btn-success" id="edit__save" style="display: none;"><i class="fi fi-save" aria-hidden="true"></i> Save</button>
 					</div>
 				</div>
 			</div>
@@ -124,17 +124,17 @@
 					<div class="modal-body">
 						<form>
 							<div class="form-group">
-								<label for="profile__username" class="col-form-label"><i class="fi fi-person"></i> Username:</label>
+								<label for="profile__username" class="col-form-label"><i class="fi fi-person" aria-hidden="true"></i> Username:</label>
 								<input type="text" class="form-control" id="profile__username" disabled>
 							</div>
 
 							<div class="form-group">
-								<label for="old__password" class="col-form-label"><i class="fi fi-asterisk"></i> Old Password:</label>
+								<label for="old__password" class="col-form-label"><i class="fi fi-asterisk" aria-hidden="true"></i> Old Password:</label>
 								<input type="password" class="form-control" id="old__password">
 							</div>
 
 							<div class="form-group">
-								<label for="new__password" class="col-form-label"><i class="fi fi-asterisk"></i> New Password:</label>
+								<label for="new__password" class="col-form-label"><i class="fi fi-asterisk" aria-hidden="true"></i> New Password:</label>
 								<input type="password" class="form-control" id="new__password">
 							</div>
 							<button class="btn btn-sm btn-primary" id="generate_password">Generate a Password</button>
@@ -142,8 +142,8 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close"><i class="fi fi-close-a"></i> Cancel</button>
-						<button type="button" class="btn btn-success" id="profile__save"><i class="fi fi-save"></i> Save</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close"><i class="fi fi-close-a" aria-hidden="true"></i> Cancel</button>
+						<button type="button" class="btn btn-success" id="profile__save"><i class="fi fi-save" aria-hidden="true"></i> Save</button>
 					</div>
 				</div>
 			</div>
