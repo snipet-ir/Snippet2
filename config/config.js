@@ -45,6 +45,10 @@ const config = {
 		siteKey: env.str('RECAPTCHA_SITE_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'),
 		secretKey: env.str('RECAPTCHA_SECRET_KEY', '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'),
 	},
+	rateLimitter: {
+		login: env.num('RATE_LIMITTER_LOGIN', 30),
+		generic: env.num('RATE_LIMITTER_GENERIC', 180),
+	},
 };
 
 module.exports = config;
