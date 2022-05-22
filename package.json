@@ -19,6 +19,7 @@
     "http-status-codes": "^2.1.4",
     "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "mongoose": "^6.1.0",
     "node-cache": "^5.1.2"
   },

@@ -1,5 +1,6 @@
 const { users } = require('./models');
 const argon = require('../services/argon2');
+const _ = require('lodash');
 
 async function createUser(username, password) {
 	try {
@@ -12,7 +13,9 @@ async function createUser(username, password) {
 
 async function findUserByUsername(username) {
 	try {
-		return await users.findOne({ username: { $regex: new RegExp(username, 'i') } }).lean();
+		safeUsername = _.escapeRegExp(username);
+
+		return await users.findOne({ username: { $regex: new RegExp(safeUsername, 'i') } }).lean();
 	} catch (err) {
 		console.error(err);
 		throw err;
