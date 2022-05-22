@@ -75,19 +75,19 @@ async function upsertSnippet(userID, { id, title, description, public, favourite
 			id = mongoose.Types.ObjectId();
 		}
 		let query = {
-			$and: [{ _id: id }, { $or: [{ owner: userID }] }],
+			$and: [{ _id: id.toString() }, { $or: [{ owner: userID.toString() }] }],
 		};
 		let data = {
 			$set: {
-				title,
-				description,
-				public,
-				favourite,
-				language,
-				code,
-				owner: userID,
+				title: title.toString(),
+				description: description.toString(),
+				public: _.isBoolean(public) ? public : false,
+				favourite: _.isBoolean(favourite) ? favourite : false,
+				language: language.toString(),
+				code: code.toString(),
+				owner: userID.toString(),
 			},
-			$addToSet: { tags: { $each: tags } },
+			$addToSet: { tags: { $each: tags.map(tag => tag.toString()) } },
 		};
 
 		return await snippets.findOneAndUpdate(query, data, { upsert: true, new: true });
@@ -100,9 +100,9 @@ async function deleteSnippet(userID, id) {
 	try {
 		return await snippets.deleteOne({
 			$and: [
-				{ $or: [{ owner: userID }, { 'collabrators.id': userID }] },
+				{ $or: [{ owner: userID.toString() }, { 'collabrators.id': userID.toString() }] },
 				{
-					_id: id,
+					_id: id.toString(),
 				},
 			],
 		});
