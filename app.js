@@ -12,7 +12,7 @@ app.use(cors());
 app.disable('x-powered-by');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(function (req, res, next) {
+app.use(function (_req, res, next) {
 	res.set(
 		'Content-Security-Policy',
 		[
@@ -43,7 +43,7 @@ app.use('/api', rateLimitter.genericLimiter, require('./routes/api/main'));
 app.use('/api', rateLimitter.genericLimiter, require('./routes/api/profile'));
 app.use('/', rateLimitter.genericLimiter, require('./routes/views'));
 
-app.use((error, req, res, next) => {
+app.use((error, _req, res, _next) => {
 	return res.error(error.message);
 });
 

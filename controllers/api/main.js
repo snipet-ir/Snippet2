@@ -4,9 +4,10 @@ const { StatusCodes } = require('http-status-codes');
 async function getSnippets(req, res, next) {
 	try {
 		const userID = req.user._id;
-		const { q, public } = req.query;
-		const ret =
-			public === 'true' ? await snippets.getPublicSnipets(userID, q) : await snippets.getUsersSnipets(userID, q);
+		const { q } = req.query;
+		const isPublic = req.query['public'] === 'true';
+
+		const ret = isPublic ? await snippets.getPublicSnipets(userID, q) : await snippets.getUsersSnipets(userID, q);
 
 		res.success(ret);
 	} catch (err) {

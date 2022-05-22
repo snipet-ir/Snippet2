@@ -374,7 +374,7 @@ function getCodeTemplate(obj) {
 			<i class="fi fi-heart ${favouriteClass}" data-value="${favouriteValue}" aria-hidden="true"></i>
 		</div>`;
 	}
-	let template = `
+	return `
 	<div class="card-code d-flex align-items-center p-3 my-3 cards-bg rounded box-shadow" data-id="${obj._id}">
 		<img
 			class="mr-3"
@@ -390,7 +390,6 @@ function getCodeTemplate(obj) {
 		${favouriteString}
 	</div>
 	`;
-	return template;
 }
 
 function setCardCodeClickHandler() {
@@ -404,7 +403,7 @@ function setCardCodeClickHandler() {
 function openModal(id) {
 	let codeItem = DATA.find(el => el._id == id);
 	let editAble = true;
-	if (PUBLIC && codeItem.editAble == false) {
+	if (PUBLIC && !codeItem.editAble) {
 		editAble = false;
 	}
 
@@ -414,7 +413,7 @@ function openModal(id) {
 	$('#deleteSnippet').data('id', codeItem._id);
 
 	$('pre code').removeClass();
-	$('pre code').each(function (i, block) {
+	$('pre code').each(function (_i, block) {
 		hljs.highlightBlock(block);
 	});
 
@@ -485,23 +484,23 @@ function editSaveHandler(e) {
 	let id = $('#edit__id').val();
 	let title = $('#edit__title').val();
 	let description = $('#edit__description').val();
-	let public = $('#edit__public').prop('checked');
+	let isPublic = $('#edit__public').prop('checked');
 	let favourite = $('#edit__favourite').prop('checked');
 	let code = $('#edit__code').val();
 	let language = $('#edit__language').val();
 	let tags = $('#edit__tags').val();
 
-	upsert({ id, title, description, public, favourite, code, language, tags });
+	upsert({ id, title, description, isPublic, favourite, code, language, tags });
 }
 
-function upsert({ id, title, description, public, favourite, code, language, tags }) {
+function upsert({ id, title, description, isPublic, favourite, code, language, tags }) {
 	$.ajax({
 		type: 'POST',
 		url: '/api/snippets',
 		headers: {
 			token: localStorage.getItem('token') || '',
 		},
-		data: JSON.stringify({ id, title, description, public, favourite, code, language, tags }),
+		data: JSON.stringify({ id, title, description, public: isPublic, favourite, code, language, tags }),
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function (response) {
@@ -554,7 +553,7 @@ function profileHandler(e) {
 	$('#profile-modal').modal('show');
 }
 
-function deleteSnippetHandler(e) {
+function deleteSnippetHandler(_e) {
 	let id = $(this).data('id');
 	alertify
 		.confirm(
@@ -568,7 +567,7 @@ function deleteSnippetHandler(e) {
 					headers: {
 						token: localStorage.getItem('token') || '',
 					},
-					success: function (response) {
+					success: function (_response) {
 						alertify.success('Snippet deleted!');
 						getSnippetsData();
 						$('#code-modal').modal('hide');
@@ -617,7 +616,7 @@ function profileSaveHandler(e) {
 		},
 		contentType: 'application/json',
 		dataType: 'json',
-		success: function (response) {
+		success: function (_response) {
 			alertify.success('Profile Updated! Please login again!');
 			setTimeout(() => {
 				localStorage.clear();

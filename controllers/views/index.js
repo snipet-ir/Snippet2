@@ -6,7 +6,7 @@ const files = {
 };
 const { version } = require('../../package.json');
 
-async function index(req, res, next) {
+async function index(_req, res, _next) {
 	const payload = {
 		version,
 	};
@@ -14,7 +14,7 @@ async function index(req, res, next) {
 	res.render(files.index, payload);
 }
 
-async function login(req, res, next) {
+async function login(_req, res, _next) {
 	const payload = {
 		recaptchaSiteKey: config.recaptcha.siteKey,
 		version,

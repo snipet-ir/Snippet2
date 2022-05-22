@@ -1,9 +1,9 @@
-function result(success, data = null) {
-	return success == true ? success(data) : error(data);
+function result(isSucceed, data = null) {
+	return isSucceed ? success(data) : error(data);
 }
 
 function success(data = null) {
-	var ret = {
+	const ret = {
 		success: true,
 	};
 	if (data) {
@@ -12,12 +12,12 @@ function success(data = null) {
 	return ret;
 }
 
-function error(error = null) {
-	var ret = {
+function error(err = null) {
+	const ret = {
 		success: false,
 	};
-	if (error) {
-		ret.error = error;
+	if (err) {
+		ret.error = err;
 	}
 	return ret;
 }

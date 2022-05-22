@@ -43,13 +43,13 @@ async function signup(req, res, next) {
 			if (!(await argon.verify(foundUser.password, password))) {
 				throw Error(`Given Username is already exist`);
 			}
-			const token = jwt.getToken({ id: foundUser._id, username });
-			return res.json({ success: true, token, username: foundUser.username });
+			const jwtToken = jwt.getToken({ id: foundUser._id, username });
+			return res.json({ success: true, token: jwtToken, username: foundUser.username });
 		} else {
 			// create a user
 			const createdUser = await users.createUser(username, password);
-			const token = jwt.getToken({ id: createdUser._id, username });
-			return res.json({ success: true, token, username: createdUser.username });
+			const jwtToken = jwt.getToken({ id: createdUser._id, username });
+			return res.json({ success: true, token: jwtToken, username: createdUser.username });
 		}
 	} catch (err) {
 		next(err);
