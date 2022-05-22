@@ -1,7 +1,7 @@
 alertify.set('notifier', 'position', 'top-center');
 
 if (localStorage.getItem('token')) {
-	if (localStorage.getItem('logedOut') === true) {
+	if (localStorage.getItem('logedOut') == 'true') {
 		window.location.href = '/';
 	}
 }
@@ -10,7 +10,7 @@ function loginResponseHandler(response) {
 	if (response.success) {
 		localStorage.setItem('token', response.token);
 		localStorage.setItem('username', response.username);
-		localStorage.setItem('logedOut', false);
+		localStorage.setItem('logedOut', 'false');
 		window.location.href = '/';
 	} else {
 		alertify.error('Wrong Credentials');
