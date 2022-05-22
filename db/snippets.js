@@ -90,8 +90,7 @@ async function upsertSnippet(userID, { id, title, description, public, favourite
 			$addToSet: { tags: { $each: tags } },
 		};
 
-		let ret = await snippets.findOneAndUpdate(query, data, { upsert: true, new: true });
-		return ret;
+		return await snippets.findOneAndUpdate(query, data, { upsert: true, new: true });
 	} catch (err) {
 		throw Error(`Can't upsert this user's snippets`);
 	}
