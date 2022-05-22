@@ -4,7 +4,10 @@ const _ = require('lodash');
 
 async function createUser(username, password) {
 	try {
-		return await users.create({ username, password: await argon.hash(password) });
+		return await users.create({
+			username: username.toString(),
+			password: await argon.hash(password.toString()),
+		});
 	} catch (err) {
 		console.error(err);
 		throw err;
@@ -13,7 +16,7 @@ async function createUser(username, password) {
 
 async function findUserByUsername(username) {
 	try {
-		const safeUsername = _.escapeRegExp(username);
+		const safeUsername = _.escapeRegExp(username.toString());
 
 		return await users.findOne({ username: { $regex: new RegExp(safeUsername, 'i') } }).lean();
 	} catch (err) {
