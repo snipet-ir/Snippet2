@@ -1,8 +1,12 @@
 const { snippets } = require('./models');
 const mongoose = require('mongoose');
+const _ = require('lodash');
 
 async function getUsersSnipets(userID, q) {
 	try {
+		const safequery = _.escapeRegExp(q);
+		const safeReg = new RegExp(safequery, 'i');
+
 		return await snippets
 			.find(
 				{
@@ -10,18 +14,18 @@ async function getUsersSnipets(userID, q) {
 						{ $or: [{ owner: userID }, { 'collabrators.id': userID }] },
 						{
 							$or: [
-								{ title: new RegExp(q, 'i') },
-								{ description: new RegExp(q, 'i') },
-								{ code: new RegExp(q, 'i') },
-								{ tags: new RegExp(q, 'i') },
-								{ language: new RegExp(q, 'i') },
+								{ title: safeReg },
+								{ description: safeReg },
+								{ code: safeReg },
+								{ tags: safeReg },
+								{ language: safeReg },
 							],
 						},
 					],
 				},
 				{
 					owner: 0,
-				}
+				},
 			)
 			.sort({ favourite: -1, updatedAt: -1 })
 			.lean();
@@ -32,6 +36,9 @@ async function getUsersSnipets(userID, q) {
 
 async function getPublicSnipets(userID, q) {
 	try {
+		const safequery = _.escapeRegExp(q);
+		const safeReg = new RegExp(safequery, 'i');
+
 		let result = await snippets
 			.find({
 				$and: [
@@ -39,11 +46,11 @@ async function getPublicSnipets(userID, q) {
 					{ public: true },
 					{
 						$or: [
-							{ title: new RegExp(q, 'i') },
-							{ description: new RegExp(q, 'i') },
-							{ code: new RegExp(q, 'i') },
-							{ tags: new RegExp(q, 'i') },
-							{ language: new RegExp(q, 'i') },
+							{ title: safeReg },
+							{ description: safeReg },
+							{ code: safeReg },
+							{ tags: safeReg },
+							{ language: safeReg },
 						],
 					},
 				],

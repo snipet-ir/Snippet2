@@ -13,7 +13,7 @@ async function createUser(username, password) {
 
 async function findUserByUsername(username) {
 	try {
-		safeUsername = _.escapeRegExp(username);
+		const safeUsername = _.escapeRegExp(username);
 
 		return await users.findOne({ username: { $regex: new RegExp(safeUsername, 'i') } }).lean();
 	} catch (err) {
