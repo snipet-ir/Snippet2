@@ -668,10 +668,7 @@ function copyToClipboard(text) {
 	document.execCommand('copy');
 	document.body.removeChild(dummy);
 
-	navigator.clipboard.writeText(text).then(
-		function () {},
-		function (err) {},
-	);
+	navigator.clipboard.writeText(text).then();
 	alertify.success('🍩 Copied to Clipboard 🎈');
 }
 
