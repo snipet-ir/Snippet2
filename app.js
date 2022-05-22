@@ -4,6 +4,8 @@ const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
 const responseManager = require('./services/responseManager');
+const rateLimitter = require('./services/rateLimitter');
+
 // set middlewares
 app.use(helmet());
 app.use(cors());
@@ -36,10 +38,10 @@ app.use('/static', express.static(__dirname + '/static'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-app.use('/api', require('./routes/api/login'));
-app.use('/api', require('./routes/api/main'));
-app.use('/api', require('./routes/api/profile'));
-app.use('/', require('./routes/views'));
+app.use('/api', rateLimitter.loginLimiter, require('./routes/api/login'));
+app.use('/api', rateLimitter.genericLimiter, require('./routes/api/main'));
+app.use('/api', rateLimitter.genericLimiter, require('./routes/api/profile'));
+app.use('/', rateLimitter.genericLimiter, require('./routes/views'));
 
 app.use((error, req, res, next) => {
 	return res.error(error.message);
