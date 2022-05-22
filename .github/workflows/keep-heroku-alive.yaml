@@ -1,0 +1,15 @@
+name: Keep heroku deployment alive
+on:
+  schedule:
+    - cron: "* * * * *"
+jobs:
+  curl:
+    runs-on: ubuntu-latest
+    name: Keep heroku deployment alive
+    steps:
+    - name: curl
+      uses: wei/curl@master
+      with:
+        args: $APP_URL
+      env:
+        APP_URL: ${{ secrets.APP_URL }}
