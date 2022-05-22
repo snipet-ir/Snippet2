@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "ejs": "^3.1.7",
     "express": "^4.17.1",
+    "express-rate-limit": "^6.4.0",
     "helmet": "^4.6.0",
     "http-status-codes": "^2.1.4",
     "joi": "^17.5.0",
