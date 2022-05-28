@@ -32,17 +32,24 @@ function signupErrorHandler(err) {
 	alertify.error('Unknown Error!');
 }
 
+function readInputs() {
+	return {
+		username: $('#user').val(),
+		password: $('#password').val(),
+		recaptchaSiteKey: $('#recaptchaSiteKey').val(),
+		otp: $('#otp').val(),
+	};
+}
+
 function loginHandler(e) {
 	e.preventDefault();
-	const username = $('#user').val();
-	const password = $('#password').val();
-	const recaptchaSiteKey = $('#recaptchaSiteKey').val();
+	const { username, password, recaptchaSiteKey, otp } = readInputs();
 
 	grecaptcha.execute(recaptchaSiteKey, { action: 'login' }).then(token => {
 		$.ajax({
 			type: 'POST',
 			url: '/api/login',
-			data: { username, password, token },
+			data: { username, password, token, otp },
 			success: loginResponseHandler,
 		});
 	});
@@ -50,9 +57,7 @@ function loginHandler(e) {
 
 function signupHandler(e) {
 	e.preventDefault();
-	const username = $('#user').val();
-	const password = $('#password').val();
-	const recaptchaSiteKey = $('#recaptchaSiteKey').val();
+	const { username, password, recaptchaSiteKey } = readInputs();
 
 	grecaptcha.execute(recaptchaSiteKey, { action: 'signup' }).then(token => {
 		$.ajax({
