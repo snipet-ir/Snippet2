@@ -9,6 +9,7 @@ const schema = mongoose.Schema(
 			otp: {
 				active: { type: Boolean, default: false },
 				secret: { type: String, default: '' },
+				iv: { type: String, default: '' },
 				backupCodes: [
 					{
 						code: String,

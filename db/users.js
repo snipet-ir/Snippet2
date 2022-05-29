@@ -2,6 +2,11 @@ const { users } = require('./models');
 const argon = require('../services/argon2');
 const _ = require('lodash');
 
+/**
+ * Use our constants to check for what the user chose.
+ * @typedef {{id: ObjectId, username: string, password: string, ban: boolean, mfa: {otp:{active: boolean, secret: string, iv: string, backupCodes:[{code: string, active: false}]}}}} User
+ */
+
 async function createUser(username, password) {
 	try {
 		return await users.create({
@@ -14,6 +19,10 @@ async function createUser(username, password) {
 	}
 }
 
+/**
+ * @param {string} username
+ * @returns {Promise<User|null>}
+ */
 async function findUserByUsername(username) {
 	try {
 		const safeUsername = _.escapeRegExp(username.toString());
@@ -25,6 +34,10 @@ async function findUserByUsername(username) {
 	}
 }
 
+/**
+ * @param {string} id
+ * @returns {Promise<User|null>}
+ */
 async function findUserByID(id) {
 	try {
 		return await users.findById(id).lean();

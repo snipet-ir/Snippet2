@@ -49,6 +49,10 @@ const config = {
 		login: env.num('RATE_LIMITTER_LOGIN', 30),
 		generic: env.num('RATE_LIMITTER_GENERIC', 180),
 	},
+	encryption: {
+		algorithm: env.str('ENCRYPTION_ALGORITHM', 'aes-256-ctr'),
+		secretKey: env.str('ENCRYPTION_SECRETKEY', 'ENCRYPTION_SECRETKEY'),
+	},
 };
 
 module.exports = config;
