@@ -1,7 +1,7 @@
 name: Keep heroku deployment alive
 on:
   schedule:
-    - cron: "* * * * *"
+    - cron: "*/5 * * * *"
 jobs:
   curl:
     runs-on: ubuntu-latest
