@@ -318,11 +318,6 @@ const languages = {
 	zig: 'zig.svg',
 };
 
-const notifyConfig = {
-	effect: 'slide',
-	autoclose: true,
-};
-
 function getSnippetsData() {
 	let q = $('#search-input').val();
 	$.ajax({
@@ -357,7 +352,7 @@ function snippetsErrorHandler(err) {
 		localStorage.setItem('logedOut', true);
 		window.location.href = '/login';
 	} else {
-		new Notify({ ...notifyConfig, status: 'error', title: '🍩 Unknown Error 🎈' });
+		notify({ status: 'error', title: '🍩 Unknown Error 🎈' });
 	}
 }
 
@@ -511,7 +506,7 @@ function upsert({ id, title, description, isPublic, favourite, code, language, t
 				$('#code-modal').modal('hide');
 				getSnippetsData();
 			} else {
-				new Notify({ ...notifyConfig, status: 'error', title: response.error });
+				notify({ status: 'error', title: response.error });
 			}
 		},
 	});
@@ -571,12 +566,12 @@ function deleteSnippetHandler(_e) {
 						token: localStorage.getItem('token') || '',
 					},
 					success: function (_response) {
-						new Notify({ ...notifyConfig, status: 'success', title: 'Snippet deleted!' });
+						notify({ status: 'success', title: 'Snippet deleted!' });
 						getSnippetsData();
 						$('#code-modal').modal('hide');
 					},
 					error: function () {
-						new Notify({ ...notifyConfig, status: 'error', title: 'Error on delete this Snippet!' });
+						notify({ status: 'error', title: 'Error on delete this Snippet!' });
 					},
 				});
 			},
@@ -599,14 +594,14 @@ function profileSaveHandler(e) {
 	// check if old pass is entered ?
 	let oldPassword = $('#old__password').val();
 	if (!oldPassword) {
-		new Notify({ ...notifyConfig, status: 'error', title: 'Please enter the old password' });
+		notify({ status: 'error', title: 'Please enter the old password' });
 		return;
 	}
 
 	// check if new pass in entered ?
 	let newPassword = $('#new__password').val();
 	if (!newPassword) {
-		new Notify({ ...notifyConfig, status: 'error', title: 'Please enter the new password' });
+		notify({ status: 'error', title: 'Please enter the new password' });
 		return;
 	}
 
@@ -620,14 +615,14 @@ function profileSaveHandler(e) {
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function (_response) {
-			new Notify({ ...notifyConfig, status: 'error', title: 'Profile updated! Please login again!' });
+			notify({ status: 'error', title: 'Profile updated! Please login again!' });
 			setTimeout(() => {
 				localStorage.clear();
 				window.location.href = '/login';
 			}, 3000);
 		},
 		error: function (err) {
-			new Notify({ ...notifyConfig, status: 'error', title: err.responseJSON.message });
+			notify({ status: 'error', title: err.responseJSON.message });
 		},
 	});
 }
@@ -671,7 +666,7 @@ function copyToClipboard(text) {
 	document.body.removeChild(dummy);
 
 	navigator.clipboard.writeText(text).then();
-	new Notify({ ...notifyConfig, status: 'success', title: '🍩 Copied to Clipboard 🎈' });
+	notify({ status: 'success', title: '🍩 Copied to Clipboard 🎈' });
 }
 
 function passwordGenerator(length = 24) {

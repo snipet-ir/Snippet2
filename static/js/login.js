@@ -1,8 +1,3 @@
-const notifyConfig = {
-	effect: 'slide',
-	autoclose: true,
-};
-
 if (localStorage.getItem('token')) {
 	if (localStorage.getItem('logedOut') == 'true') {
 		window.location.href = '/';
@@ -16,7 +11,7 @@ function loginResponseHandler(response) {
 		localStorage.setItem('logedOut', 'false');
 		window.location.href = '/';
 	} else {
-		new Notify({ ...notifyConfig, status: 'error', title: 'Wrong Credentials' });
+		notify({ status: 'error', title: 'Wrong Credentials' });
 	}
 }
 
@@ -26,13 +21,13 @@ function signupResponseHandler(response) {
 		localStorage.setItem('username', response.username);
 		window.location.href = '/';
 	} else {
-		new Notify({ ...notifyConfig, status: 'error', title: response.error });
+		notify({ status: 'error', title: response.error });
 	}
 }
 
 function signupErrorHandler(err) {
 	console.error(err);
-	new Notify({ ...notifyConfig, status: 'error', title: 'Unknown Error!' });
+	notify({ status: 'error', title: 'Unknown Error!' });
 }
 
 function readInputs() {
