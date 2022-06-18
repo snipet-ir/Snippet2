@@ -1,5 +1,3 @@
-alertify.set('notifier', 'position', 'top-center');
-
 if (localStorage.getItem('token')) {
 	if (localStorage.getItem('logedOut') == 'true') {
 		window.location.href = '/';
@@ -13,7 +11,7 @@ function loginResponseHandler(response) {
 		localStorage.setItem('logedOut', 'false');
 		window.location.href = '/';
 	} else {
-		alertify.error('Wrong Credentials');
+		notify({ status: 'error', title: 'Wrong Credentials' });
 	}
 }
 
@@ -23,13 +21,13 @@ function signupResponseHandler(response) {
 		localStorage.setItem('username', response.username);
 		window.location.href = '/';
 	} else {
-		alertify.error(response.error);
+		notify({ status: 'error', title: response.error });
 	}
 }
 
 function signupErrorHandler(err) {
 	console.error(err);
-	alertify.error('Unknown Error!');
+	notify({ status: 'error', title: 'Unknown Error!' });
 }
 
 function readInputs() {
