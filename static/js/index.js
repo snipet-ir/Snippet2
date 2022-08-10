@@ -553,7 +553,7 @@ function profileHandler(e) {
 
 function deleteSnippetHandler(_e) {
 	let id = $(this).data('id');
-	const answer = window.confirm('Delete, are You Sure?');
+	const answer = window.confirm('Delete, are you sure?');
 	if (answer) {
 		$.ajax({
 			type: 'DELETE',
