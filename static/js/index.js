@@ -553,31 +553,25 @@ function profileHandler(e) {
 
 function deleteSnippetHandler(_e) {
 	let id = $(this).data('id');
-	alertify
-		.confirm(
-			'Delete?',
-			'Are You Sure?',
-			function () {
-				$.ajax({
-					type: 'DELETE',
-					url: '/api/snippets',
-					data: { id },
-					headers: {
-						token: localStorage.getItem('token') || '',
-					},
-					success: function (_response) {
-						notify({ status: 'success', title: 'Snippet deleted!' });
-						getSnippetsData();
-						$('#code-modal').modal('hide');
-					},
-					error: function () {
-						notify({ status: 'error', title: 'Error on delete this Snippet!' });
-					},
-				});
+	const answer = window.confirm('Delete, are you sure?');
+	if (answer) {
+		$.ajax({
+			type: 'DELETE',
+			url: '/api/snippets',
+			data: { id },
+			headers: {
+				token: localStorage.getItem('token') || '',
 			},
-			function () {},
-		)
-		.set('modal', true);
+			success: function (_response) {
+				notify({ status: 'success', title: 'Snippet deleted!' });
+				getSnippetsData();
+				$('#code-modal').modal('hide');
+			},
+			error: function () {
+				notify({ status: 'error', title: 'Error on delete this Snippet!' });
+			},
+		});
+	}
 }
 
 function generatePasswordHandler(e) {
