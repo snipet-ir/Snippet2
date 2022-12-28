@@ -5,23 +5,23 @@ mongoose.connect(config.mongodb.url, config.mongodb.options);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.once('open', async () => {
 	console.log('Mongodb connected');
 
-	db.db.listCollections().toArray(function (err, collections) {
-		if (err) {
-			console.log(err);
-			return;
+	try {
+		const collections = await db.db.listCollections().toArray();
+		const hasUserCollection = collections.some(collection => collection.name === 'Users');
+		if (!hasUserCollection) {
+			console.log('Init setup project, creating admin user now');
+			await initSetup();
 		}
-		let collectionsName = collections.map(el => el.name);
-
-		if (!collectionsName.includes('Users')) {
-			initSetup();
-		}
-	});
+	} catch (err) {
+		console.error(err);
+		return;
+	}
 });
 
-async function initSetup() {
+function initSetup() {
 	const { users } = require('./index');
-	await users.createUser(config.initSetup.user.username, config.initSetup.user.password);
+	return users.createUser(config.initSetup.user.username, config.initSetup.user.password);
 }
