@@ -21,8 +21,8 @@ const config = {
 	},
 	initSetup: {
 		user: {
-			username: env.str('INIT_USERNAME', 'Ehcan'),
-			password: env.str('INIT_PASSWORD', 'Ehcan'),
+			username: env.str('INIT_USERNAME', 'admin'),
+			password: env.str('INIT_PASSWORD', 'password!'),
 		},
 	},
 	validator: {
