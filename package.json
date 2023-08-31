@@ -21,7 +21,7 @@
 		"joi": "^17.6.0",
 		"jsonwebtoken": "^9.0.0",
 		"lodash": "^4.17.21",
-		"mongoose": "^6.4.6",
+		"mongoose": "^6.12.0",
 		"node-cache": "^5.1.2",
 		"otplib": "^12.0.1"
 	},
